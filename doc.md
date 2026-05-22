@@ -195,7 +195,7 @@ cd /boot
 mkdir -p /boot/EFI/Linux
 ```
 ```
-/usr/lib/booster/regenerate_uki build -k /boot/vmlinuz-linux-lts -o /boot/EFI/Linux/booster-linux-lts.efi
+/usr/lib/booster/regenerate_uki build -k vmlinuz-linux-lts -o /boot/EFI/Linux/booster-linux-lts.efi
 ```
 ```
 bootctl --path=/boot install
