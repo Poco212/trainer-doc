@@ -1,3 +1,7 @@
+# preparation
+
+Ubah mode Secure Boot ke Setup Mode (biasanya dengan memilih opsi "Clear Secure Boot Keys" atau "Reset to Setup Mode")
+
 # partition
 ```
 pvcreate /dev/partition
