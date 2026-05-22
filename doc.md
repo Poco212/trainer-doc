@@ -209,7 +209,7 @@ echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
 echo "initrd  /booster-linux-lts.img" >> /boot/loader/entries/arch.conf
 ```
 ```
-echo "options $(cat /etc/kernel/cmdline) rw >> /boot/loader/entries/arch.conf
+echo "options $(cat /etc/kernel/cmdline) rw" >> /boot/loader/entries/arch.conf
 ```
 ```
 echo "default  arch.conf" >> /boot/loader/loader.conf
