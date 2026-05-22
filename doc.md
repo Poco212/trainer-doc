@@ -176,8 +176,6 @@ echo 'nama_user ALL=(ALL:ALL) ALL' >> /etc/sudoers.d/none
 ```
 echo "root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" > /etc/kernel/cmdline
 ```
-
-
 ## booster
 ```
 nvim /etc/booster.yaml
@@ -190,6 +188,7 @@ modules: vfat
 compression: zstd
 enable_lvm: true
 extra_files: /boot/intel-ucode.img
+extra_files: /etc/kernel/cmdline
 ```
 ```
 cd /boot
