@@ -111,7 +111,7 @@ lvcreate -L size (G | M) proc -n home
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager network-manager-applet sbctl
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager network-manager-applet sbctl systemd-ukify
 ```
 # fstab
 ```
@@ -174,7 +174,30 @@ echo 'nama_user ALL=(ALL:ALL) ALL' >> /etc/sudoers.d/none
 
 ## kernel parameter
 ```
-echo "root=/dev/proc/root rw" > /etc/kernel/cmdline
+echo "root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" > /etc/kernel/cmdline
+```
+
+
+## booster
+```
+nvim /etc/booster.yaml
+```
+add value
+```
+network:
+  dhcp: on
+modules: vfat
+compression: zstd
+enable_lvm: true
+```
+```
+cd /boot
+```
+```
+/usr/lib/booster/regenerate_uki
+```
+```
+bootctl --path=/boot install
 ```
 
 ## secureboot
@@ -195,29 +218,6 @@ sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
 ```
 ```
 sbctl sign --save /boot/EFI/BOOT/BOOTX64.EFI
-```
-
-
-## booster
-```
-nvim /etc/booster.yaml
-```
-add value
-```
-network:
-  dhcp: on
-modules: vfat
-compression: zstd
-enable_lvm: true
-```
-```
-cd /boot
-```
-```
-/usr/lib/booster/regenerate_images
-```
-```
-bootctl --path=/boot install
 ```
 ```
 echo "title   Arch Linux" > /boot/loader/entries/arch.conf
