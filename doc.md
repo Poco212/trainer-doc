@@ -212,6 +212,9 @@ sbctl enroll-keys -m -f
 sbctl sign --save /boot/EFI/Linux/booster-linux-lts.efi
 ```
 ```
+bootctl --path=/boot update
+```
+```
 sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
 ```
 ```
