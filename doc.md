@@ -169,7 +169,7 @@ useradd -m username
 passwd username
 ```
 ```
-echo 'nama_user ALL=(ALL:ALL) ALL' >> /etc/sudoers.d/none
+echo 'nama_user ALL=(ALL:ALL) ALL' > /etc/sudoers.d/none
 ```
 
 ## booster
