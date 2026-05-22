@@ -218,7 +218,10 @@ sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
 sbctl sign --save /boot/EFI/BOOT/BOOTX64.EFI
 ```
 ```
-bootctl set-default booster-linux-lts.efi
+bootctl --path=/boot install
+```
+```
+echo "default booster-linux-lts.efi" >> /boot/loader/loader.conf
 ```
 
 ## booting
