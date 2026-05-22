@@ -209,9 +209,6 @@ sbctl create-keys
 sbctl enroll-keys -m -f
 ```
 ```
-sbctl sign --save /boot/vmlinuz-linux-lts
-```
-```
 sbctl sign --save /boot/EFI/Linux/booster-linux-lts.efi
 ```
 ```
@@ -219,12 +216,6 @@ sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
 ```
 ```
 sbctl sign --save /boot/EFI/BOOT/BOOTX64.EFI
-```
-```
-bootctl --path=/boot install
-```
-```
-echo "default booster-linux-lts.efi" >> /boot/loader/loader.conf
 ```
 
 ## booting
