@@ -189,6 +189,7 @@ network:
 modules: vfat
 compression: zstd
 enable_lvm: true
+extra_files: /boot/intel-ucode.img
 ```
 ```
 cd /boot
