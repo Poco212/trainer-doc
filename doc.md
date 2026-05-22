@@ -167,12 +167,8 @@ passwd username
 ```
 echo 'nama_user ALL=(ALL:ALL) ALL' >> /etc/sudoers.d/none
 ```
-```
-usermod -aG wheel [user]
-```
-****
 
-## KERNEL PARAMETER
+## kernel parameter
 ```
 touch /etc/kernel/cmdline
 ```
@@ -190,7 +186,7 @@ nvim /etc/booster.yaml
 add value
 ```
 network:
-  dhcp: true
+  dhcp: on
 modules: vfat
 compression: zstd
 enable_lvm: true
