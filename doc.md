@@ -209,7 +209,7 @@ sbctl enroll-keys -m -f
 sbctl sign --save /boot/vmlinuz-linux-lts
 ```
 ```
-sbctl sign --save /boot/booster-linux-lts.img
+sbctl sign --save /boot/EFI/Linux/booster-linux-lts.efi
 ```
 ```
 sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
