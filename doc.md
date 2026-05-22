@@ -186,7 +186,7 @@ enable_lvm: true
 extra_files: /boot/intel-ucode.img
 ```
 ```
-echo "root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" >> /etc/booster.yaml
+echo "cmdline: root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" >> /etc/booster.yaml
 ```
 ```
 cd /boot
