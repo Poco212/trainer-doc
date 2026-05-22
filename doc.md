@@ -214,9 +214,6 @@ echo "options $(cat /etc/kernel/cmdline) rw" >> /boot/loader/entries/arch.conf
 ```
 echo "default  arch.conf" >> /boot/loader/loader.conf
 ```
-```
-touch /etc/vconsole.conf
-```
 
 ## booting
 ```
