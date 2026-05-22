@@ -159,8 +159,10 @@ LC_ALL=en_US.UTF-8
 
 ## useradd
 ```
-useradd -m [user]
-passwd [user]
+useradd -m username
+```
+```
+passwd username
 ```
 ```
 echo 'nama_user ALL=(ALL:ALL) ALL' >> /etc/sudoers.d/none
