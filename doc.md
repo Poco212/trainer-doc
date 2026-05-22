@@ -197,7 +197,7 @@ cd /boot
 bootctl --path=/boot install
 ```
 ```
-echo "title   Arch Linux Minimal" > /boot/loader/entries/arch.conf
+echo "title   Arch Linux" > /boot/loader/entries/arch.conf
 ```
 ```
 echo "linux   /vmlinuz-linux-lts" >> /boot/loader/entries/arch.conf
@@ -209,7 +209,7 @@ echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
 echo "initrd  /booster-linux-lts.img" >> /boot/loader/entries/arch.conf
 ```
 ```
-echo "options $(cat /etc/kernel/cmdline) rw" >> /boot/loader/entries/arch.conf
+echo "options $(cat /etc/kernel/cmdline)" >> /boot/loader/entries/arch.conf
 ```
 ```
 echo "default  arch.conf" >> /boot/loader/loader.conf
