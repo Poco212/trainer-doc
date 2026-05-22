@@ -25,7 +25,7 @@ mkfs.vfat -F32 -n BOOT /dev/partition
 mkdir /mnt/boot
 ```
 ```
-mount /dev/paritition /mnt/boot
+mount -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/paritition /mnt/boot
 ```
 
 
