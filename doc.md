@@ -178,6 +178,25 @@ echo "root=/dev/proc/root rw" > /etc/kernel/cmdline
 ```
 
 ## secureboot
+```
+sbctl create-keys
+```
+```
+sbctl enroll-keys -m -f
+```
+```
+sbctl sign --save /boot/vmlinuz-linux-lts
+```
+```
+sbctl sign --save /boot/booster-linux-lts.img
+```
+```
+sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
+```
+```
+sbctl sign --save /boot/EFI/BOOT/BOOTX64.EFI
+```
+
 
 ## booster
 ```
