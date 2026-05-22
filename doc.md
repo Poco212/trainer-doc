@@ -192,7 +192,7 @@ echo "cmdline: root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" >> /etc/bo
 cd /boot
 ```
 ```
-/usr/lib/booster/regenerate_uki
+/usr/lib/booster/regenerate_uki build /boot/EFI/Linux
 ```
 ```
 bootctl --path=/boot install
