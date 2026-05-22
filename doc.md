@@ -1,5 +1,4 @@
 # partition
-
 ```
 pvcreate /dev/partition
 ```
@@ -122,7 +121,7 @@ mount -o rw,nodev,nosuid,relatime /dev/mapper/system /mnt/home
 ```
 # packages
 ```
-pacstrap /mnt intel linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager network-manager-applet
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager network-manager-applet
 ```
 # fstab
 ```
@@ -220,7 +219,7 @@ cd /boot
 /usr/lib/booster/regenerate_images
 ```
 ```
-booctl --path=/boot install
+bootctl --path=/boot install
 ```
 ```
 echo "title   Arch Linux Minimal" > /boot/loader/entries/arch.conf
