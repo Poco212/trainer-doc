@@ -185,7 +185,7 @@ compression: zstd
 enable_lvm: true
 ```
 ```
-echo "root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" > /etc/booster.yaml
+echo "root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" >> /etc/booster.yaml
 ```
 ```
 cd /boot
