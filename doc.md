@@ -218,7 +218,7 @@ sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
 sbctl sign --save /boot/EFI/BOOT/BOOTX64.EFI
 ```
 ```
-bootctl set-default namafile.efi
+bootctl set-default booster-linux-lts.efi
 ```
 
 ## booting
