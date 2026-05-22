@@ -1,15 +1,10 @@
 # partition
+
 ```
-cryptsetup luksFormat /dev/partition
-```
-```
-cryptsetup luksOpen /dev/partition system
+pvcreate /dev/partition
 ```
 ```
-pvcreate /dev/mapper/system
-```
-```
-vgcreate proc /dev/mapper/system
+vgcreate proc /dev/partition
 ```
 
 ## root
@@ -111,38 +106,32 @@ mount -o rw,nodev,nosuid,noexec,relatime /dev/proc/temp /mnt/tmp
 lvcreate -L size (G | M) proc -n home
 ```
 ```
-mkfs.ext4 /dev/proc/home
+cryptsetup luksFormat /dev/proc/home
+```
+```
+cryptsetup luksOpen /dev/proc/home system
+```
+```
+mkfs.ext4 /dev/mapper/system
 ```
 ```
 mkdir /mnt/home
 ```
 ```
-mount -o rw,nodev,nosuid,relatime /dev/proc/home /mnt/home
+mount -o rw,nodev,nosuid,relatime /dev/mapper/system /mnt/home
 ```
 # packages
 ```
-pacstrap /mnt intel linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr
+pacstrap /mnt intel linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager network-manager-applet
 ```
 # fstab
 ```
 genfstab -U /mnt > /mnt/etc/fstab
 ```
-# network
-```
-cp /etc/systemd/network/* /mnt/etc/systemd/network
-```
-```
-mkdir /mnt/var/lib/iwd
-```
-```
-cp -r /var/lib/iwd/* /mnt/var/lib/iwd
-```
 # chroot
 ```
 arch-chroot /mnt
 ```
-
-
 
 ## jika 1 kata tidak perlu pake `""` kalo lebih menggunakan petik `""`
 ```
