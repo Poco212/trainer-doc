@@ -111,7 +111,7 @@ lvcreate -L size (G | M) proc -n home
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager network-manager-applet
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager network-manager-applet sbctl
 ```
 # fstab
 ```
