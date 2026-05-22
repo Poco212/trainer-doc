@@ -172,10 +172,6 @@ passwd username
 echo 'nama_user ALL=(ALL:ALL) ALL' >> /etc/sudoers.d/none
 ```
 
-## kernel parameter
-```
-echo "root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" > /etc/kernel/cmdline
-```
 ## booster
 ```
 nvim /etc/booster.yaml
@@ -187,8 +183,9 @@ network:
 modules: vfat
 compression: zstd
 enable_lvm: true
-extra_files: /boot/intel-ucode.img
-extra_files: /etc/kernel/cmdline
+```
+```
+echo "root=UUID=$(blkid -s UUID -o value /dev/proc/root) rw" > /etc/booster.yaml
 ```
 ```
 cd /boot
@@ -220,22 +217,7 @@ sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
 sbctl sign --save /boot/EFI/BOOT/BOOTX64.EFI
 ```
 ```
-echo "title   Arch Linux" > /boot/loader/entries/arch.conf
-```
-```
-echo "linux   /vmlinuz-linux-lts" >> /boot/loader/entries/arch.conf
-```
-```
-echo "initrd  /intel-ucode.img" >> /boot/loader/entries/arch.conf
-```
-```
-echo "initrd  /booster-linux-lts.img" >> /boot/loader/entries/arch.conf
-```
-```
-echo "options $(cat /etc/kernel/cmdline)" >> /boot/loader/entries/arch.conf
-```
-```
-echo "default  arch.conf" >> /boot/loader/loader.conf
+bootctl set-default namafile.efi
 ```
 
 ## booting
