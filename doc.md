@@ -170,16 +170,12 @@ echo 'nama_user ALL=(ALL:ALL) ALL' >> /etc/sudoers.d/none
 
 ## kernel parameter
 ```
-touch /etc/kernel/cmdline
-```
-
-```
 echo "root=/dev/proc/root rw" > /etc/kernel/cmdline
 ```
 
 ## secureboot
 
-## BOOSTER
+## booster
 ```
 nvim /etc/booster.yaml
 ```
