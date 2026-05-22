@@ -196,7 +196,7 @@ touch /etc/kernel/cmdline
 ```
 
 ```
-echo "rd.luks.name=$(blkid -o UUID -s value /dev/patition_root)=proc root=/dev/proc/root" > /etc/kernel/cmdline
+echo "root=/dev/proc/root rw" > /etc/kernel/cmdline
 ```
 
 ## secureboot
@@ -207,8 +207,9 @@ nvim /etc/booster.yaml
 ```
 add value
 ```
-network: true
-modules: vfat, ext4, nvme
+network:
+  dhcp: true
+modules: vfat
 compression: zstd
 enable_lvm: true
 ```
