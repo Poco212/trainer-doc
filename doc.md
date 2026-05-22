@@ -118,7 +118,7 @@ genfstab -U /mnt > /mnt/etc/fstab
 arch-chroot /mnt
 ```
 
-## jika 1 kata tidak perlu pake `""` kalo lebih menggunakan petik `""`
+## hostname
 ```
 echo [nama komputer] > /etc/hostname
 ```
