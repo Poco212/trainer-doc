@@ -123,27 +123,24 @@ arch-chroot /mnt
 echo [nama komputer] > /etc/hostname
 ```
 
-## LOCALTIME
+## localtime
 ```
 ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 ```
 ```
 hwclock --systohc
 ```
-****
-## LOCALE
+
+## locale
 
 ```
 nvim /etc/locale.gen
 ```
-
-## lalu pencarian di nvim menggunakan `/`
-
+uncommentin both `en_US.UTF-8`
 ```
-lalu uncommenting kedua en_US
+en_US.UTF-8
+en_US.ISO-8859-1
 ```
-
-### generate bahasa yg di uncommenting 
 ```
 locale-gen
 ```
@@ -151,18 +148,16 @@ locale-gen
 ```
 locale > /etc/locale.conf
 ```
-
-### config locale
 ```
 nvim /etc/locale.conf
 ```
-### config file locale 
+add value like below
 ```
-isi lang=C menjadi lang=en_US.UTF-8
-dan isi ALL=en_US.UTF-8
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
 ```
-****
-## USERADD
+
+## useradd
 ```
 useradd -m [user]
 passwd [user]
