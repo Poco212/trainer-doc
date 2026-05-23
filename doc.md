@@ -180,7 +180,7 @@ add value
 ```
 network:
   dhcp: on
-modules: vfat
+modules: -*, ext4, (sata_* or nvme)
 compression: zstd
 enable_lvm: true
 extra_files: /boot/intel-ucode.img, /usr/bin/lvm
