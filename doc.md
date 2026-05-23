@@ -111,7 +111,7 @@ lvcreate -l100%FREE proc -n home
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager network-manager-applet sbctl systemd-ukify
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager sbctl systemd-ukify
 ```
 # fstab
 ```
