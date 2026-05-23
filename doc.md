@@ -178,9 +178,9 @@ add value
 network:
   dhcp: on
 universal: false
-modules: -*, ext4
+modules: -*, ext4,lvm2
 extra_files: fsck,fsck.ext4
-compression: zstd
+strip: true
 enable_lvm: true
 ```
 ```
@@ -192,28 +192,19 @@ cd /boot
 ```
 booster build --kernel-version <version> /boot/booster-linux-lts.img
 ```
+## systemd-boot
 ```
 bootctl --path=/boot install
 ```
-
-## secureboot
 ```
-sbctl create-keys
+nvim /boot/loader/entries/booster.conf
 ```
 ```
-sbctl enroll-keys -m -f
-```
-```
-sbctl sign --save /boot/EFI/Linux/booster-linux-lts.efi
-```
-```
-bootctl --path=/boot update
-```
-```
-sbctl sign --save /boot/EFI/systemd/systemd-bootx64.efi
-```
-```
-sbctl sign --save /boot/EFI/BOOT/BOOTX64.EFI
+title    arch with booster
+linux    /vmlinuz-linux-lts
+initrd   /intel-ucode.img
+initrd   /booster-linux-lts.img
+options  root=/dev/proc/root rw
 ```
 
 ## booting
