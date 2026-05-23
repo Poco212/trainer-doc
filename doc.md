@@ -1,6 +1,3 @@
-# preparation
-
-Ubah mode Secure Boot ke Setup Mode (biasanya dengan memilih opsi "Clear Secure Boot Keys" atau "Reset to Setup Mode")
 
 # partition
 ```
@@ -180,22 +177,20 @@ add value
 ```
 network:
   dhcp: on
-modules: -*, ext4, (sd_mod or nvme)
+universal: false
+modules: -*, ext4
+extra_files: fsck,fsck.ext4
 compression: zstd
 enable_lvm: true
-extra_files: /boot/intel-ucode.img, /usr/bin/lvm
-```
-```
-echo "cmdline: root=UUID=$(blkid -s UUID -o value /dev/mapper/proc-root) rw" >> /etc/booster.yaml
 ```
 ```
 cd /boot
 ```
 ```
-mkdir -p /boot/EFI/Linux
+
 ```
 ```
-/usr/lib/booster/regenerate_uki build /boot/EFI/Linux
+booster build --kernel-version <version> /boot/booster-linux-lts.img
 ```
 ```
 bootctl --path=/boot install
