@@ -206,7 +206,14 @@ initrd   /intel-ucode.img
 initrd   /booster-linux-lts.img
 options  root=/dev/proc/root rw
 ```
+```
+nvim /boot/loader/loader.conf
+```
+tambahkan paling bawah
 
+```
+default  booster.conf
+```
 ## booting
 ```
 exit
