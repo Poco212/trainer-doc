@@ -106,7 +106,7 @@ mount -o rw,nodev,nosuid,noexec,relatime /dev/proc/temp /mnt/tmp
 
 ## home
 ```
-lvcreate -L size (G | M) proc -n home
+lvcreate -l100%FREE proc -n home
 ```
 
 # packages
