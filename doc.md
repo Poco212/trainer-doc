@@ -327,7 +327,7 @@ for cek kernel version
 ls /usr/lib/modules
 ```
 ```
-booster build --kernel-version <version> /boot/booster-linux-lts.img
+booster build --kernel-version <version> /boot/booster-linux-lts-new.img
 ```
 ```
 rm -fr booster-linux-lts.img
@@ -343,7 +343,7 @@ nvim /boot/loader/entries/booster.conf
 title    arch with booster
 linux    /vmlinuz-linux-lts
 initrd   /intel-ucode.img
-initrd   /booster-linux-lts.img
+initrd   /booster-linux-lts-new.img
 options  root=/dev/proc/root rw
 ```
 ```
@@ -353,6 +353,9 @@ tambahkan paling bawah
 
 ```
 default  booster.conf
+```
+```
+bootctl --graceful update 
 ```
 ## booting
 ```
