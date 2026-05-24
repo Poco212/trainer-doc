@@ -314,7 +314,7 @@ add value
 network:
   dhcp: on
 universal: false
-modules: -*, ext4,lvm2
+modules: -*,ext4
 extra_files: fsck,fsck.ext4
 strip: true
 enable_lvm: true
