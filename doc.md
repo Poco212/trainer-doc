@@ -23,10 +23,7 @@ mount /dev/proc/root /mnt
 mkfs.vfat -F32 -n BOOT /dev/partition
 ```
 ```
-mkdir /mnt/boot
-```
-```
-mount -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/paritition /mnt/boot
+mount --mkdir -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/paritition /mnt/boot
 ```
 
 
@@ -38,10 +35,7 @@ lvcreate -L size (G | M) proc -n vars
 mkfs.ext4 /dev/proc/vars
 ```
 ```
-mkdir /mnt/var
-```
-```
-mount -o rw,nodev,nosuid,relatime /dev/proc/vars /mnt/var
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/proc/vars /mnt/var
 ```
 
 
@@ -53,10 +47,7 @@ lvcreate -L size (G | M) proc -n vtmp
 mkfs.ext4 /dev/proc/vtmp
 ```
 ```
-mkdir /mnt/var/tmp
-```
-```
-mount -o rw,nodev,nosuid,noexec,relatime /dev/proc/vtmp /mnt/var/tmp
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vtmp /mnt/var/tmp
 ```
 
 ## vlog
@@ -67,10 +58,7 @@ lvcreate -L size (G | M) proc -n vlog
 mkfs.ext4 /dev/proc/vlog
 ```
 ```
-mkdir /mnt/var/log
-```
-```
-mount -o rw,nodev,nosuid,noexec,relatime /dev/proc/vlog /mnt/var/log
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vlog /mnt/var/log
 ```
 
 ## vaud
@@ -81,10 +69,7 @@ lvcreate -L size (G | M) proc -n vaud
 mkfs.ext4 /dev/proc/vaud
 ```
 ```
-mkdir /mnt/var/log/audit
-```
-```
-mount -o rw,nodev,nosuid,noexec,relatime /dev/proc/vaud /mnt/var/log/audit
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vaud /mnt/var/log/audit
 ```
 
 ## temp
@@ -95,15 +80,12 @@ lvcreate -L size (G | M) proc -n temp
 mkfs.ext4 /dev/proc/temp
 ```
 ```
-mkdir /mnt/tmp
-```
-```
-mount -o rw,nodev,nosuid,noexec,relatime /dev/proc/temp /mnt/tmp
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/temp /mnt/tmp
 ```
 
 ## home
 ```
-lvcreate -l100%FREE proc -n home
+lvcreate -l50%FREE proc -n home
 ```
 
 ## setup luks partition home
@@ -122,7 +104,7 @@ mkfs.ext4 /dev/mapper/cadel
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager sbctl systemd-ukify
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster networkmanager pam_mount
 ```
 # fstab
 ```
@@ -179,16 +161,149 @@ LANG=en_US.UTF-8
 LC_ALL=en_US.UTF-8
 ```
 
-## useradd
+## pam_mount
 ```
-useradd -m username
+cryptsetup luksOpen /dev/proc/[nama user] [nama device]
 ```
+
 ```
-passwd username
+mkdir -p /home/[nama user]
 ```
+
+```
+useradd -d /home/[user name] user
+```
+
+```
+chown -R user:user /home/[user name]
+```
+
+```
+passwd user
+```
+> password must same like luks for this partition
+
 ```
 echo 'nama_user ALL=(ALL:ALL) ALL' > /etc/sudoers.d/none
 ```
+
+### Configure the Volume
+
+```
+nvim /etc/security/pam_mount.conf.xml
+```
+> adjust like the lines below
+```/etc/security/pam_mount.conf.xml
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE pam_mount SYSTEM "pam_mount.conf.xml.dtd">
+<!--
+	See pam_mount.conf(5) for a description.
+-->
+
+<pam_mount>
+
+		<!-- debug should come before everything else,
+		since this file is still processed in a single pass
+		from top-to-bottom -->
+
+<debug enable="0" />
+
+		<!-- Volume definitions -->
+
+
+		<!-- pam_mount parameters: General tunables -->
+
+<!--
+<luserconf name=".pam_mount.conf.xml" />
+-->
+
+<!-- Note that commenting out mntoptions will give you the defaults.
+     You will need to explicitly initialize it with the empty string
+     to reset the defaults to nothing. -->
+<mntoptions allow="nosuid,nodev,loop,encryption,fsck,nonempty,allow_root,allow_other" />
+<!--
+<mntoptions deny="suid,dev" />
+<mntoptions allow="*" />
+<mntoptions deny="*" />
+-->
+<mntoptions require="nosuid,nodev" />
+
+<!-- requires ofl from hxtools to be present -->
+<logout wait="0" hup="no" term="no" kill="no" />
+
+<!-- Example entry for a LUKS partition -->
+<volume 
+    user="[user name]" 
+    fstype="crypt" 
+    path="/dev/proc/[user name]" 
+    mountpoint="/home/[user name]" 
+/>
+		<!-- pam_mount parameters: Volume-related -->
+
+<mkmountpoint enable="1" remove="true" />
+
+
+</pam_mount>
+```
+
+Edit the `pam_mount` configuration file at `/etc/security/pam_mount.conf.xml`. You need to add a `<volume>` entry for your encrypted device.
+
+```xml
+<!-- Example entry for a LUKS partition -->
+<volume 
+    user="[user name]" 
+    fstype="crypt" 
+    path="/dev/proc/[user name]" 
+    mountpoint="/home/[user name]" 
+/>
+```
+*   **path:** The identifier for your encrypted partition (e.g., `/dev/sdb1` or a UUID).
+*   **mountpoint:** Where the partition should be accessible after unlocking.
+*   **options:** `allow-discard` is useful for SSD performance.
+
+### Update PAM Configuration
+
+```
+nvim /etc/pam.d/system-login
+```
+> adjust like the lines below
+```/etc/pam.d/system-login
+#%PAM-1.0
+
+auth       required   pam_shells.so
+auth       requisite  pam_nologin.so
+auth       include    system-auth
+auth       required   pam_mount.so
+
+account    required   pam_access.so
+account    required   pam_nologin.so
+account    include    system-auth
+
+password   include    system-auth
+
+session    optional   pam_loginuid.so
+session    optional   pam_keyinit.so       force revoke
+session    include    system-auth
+session    optional   pam_lastlog2.so      silent
+session    optional   pam_motd.so
+session    optional   pam_mail.so          dir=/var/spool/mail standard quiet
+session    optional   pam_umask.so
+session    optional  pam_mount.so
+-session   optional   pam_systemd.so
+session    required   pam_env.so
+```
+
+You must tell the system to use `pam_mount` during the login process. Edit `/etc/pam.d/system-login` to include the following lines in the correct sections:
+
+```/etc/pam.d/system-login
+# Add to the 'auth' section
+auth        required    pam_mount.so
+
+# Add to the 'session' section
+session     optional    pam_mount.so
+```
+*Note: If you use a Display Manager (like GDM or SDDM), ensure its specific PAM file also includes these or inherits from `system-login`.*
+
 
 ## booster
 ```
@@ -207,11 +322,15 @@ enable_lvm: true
 ```
 cd /boot
 ```
+for cek kernel version
 ```
-
+ls /usr/lib/modules
 ```
 ```
 booster build --kernel-version <version> /boot/booster-linux-lts.img
+```
+```
+rm -fr booster-linux-lts.img
 ```
 ## systemd-boot
 ```
