@@ -128,6 +128,13 @@ pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel n
 ```
 genfstab -U /mnt > /mnt/etc/fstab
 ```
+
+# tmpfs
+
+```
+echo "tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime,size-1G 0 0" >> /etc/mnt/fstab
+```
+
 # chroot
 ```
 arch-chroot /mnt
