@@ -106,6 +106,20 @@ mount -o rw,nodev,nosuid,noexec,relatime /dev/proc/temp /mnt/tmp
 lvcreate -l100%FREE proc -n home
 ```
 
+## setup luks partition home
+
+```
+cryptsetup luksFormat /dev/proc/[nama user]
+```
+
+```
+cryptsetup luksOpen /dev/mapper[nama user] [nama device]
+```
+
+```
+mkfs.ext4 /dev/mapper/cadel
+```
+
 # packages
 ```
 pacstrap /mnt intel-ucode linux-lts linux-lts-headers iwd lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster efibootmgr networkmanager sbctl systemd-ukify
