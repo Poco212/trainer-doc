@@ -72,17 +72,6 @@ mkfs.ext4 /dev/proc/vaud
 mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vaud /mnt/var/log/audit
 ```
 
-## temp
-```
-lvcreate -L size (G | M) proc -n temp
-```
-```
-mkfs.ext4 /dev/proc/temp
-```
-```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/temp /mnt/tmp
-```
-
 ## home
 ```
 lvcreate -l50%FREE proc -n home
@@ -92,14 +81,6 @@ lvcreate -l50%FREE proc -n home
 
 ```
 cryptsetup luksFormat /dev/proc/[nama user]
-```
-
-```
-cryptsetup luksOpen /dev/mapper[nama user] [nama device]
-```
-
-```
-mkfs.ext4 /dev/mapper/cadel
 ```
 
 # packages
@@ -114,7 +95,7 @@ genfstab -U /mnt > /mnt/etc/fstab
 # tmpfs
 
 ```
-echo "tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime,size-1G 0 0" >> /etc/mnt/fstab
+echo "tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime,size=1G 0 0" >> /etc/mnt/fstab
 ```
 
 # chroot
@@ -186,12 +167,7 @@ passwd user
 ```
 echo 'nama_user ALL=(ALL:ALL) ALL' > /etc/sudoers.d/none
 ```
-```
-sudo mount -o rw,nodev,nosuid,relatime /dev/mapper/[nama device] /home/[name]
-
-```
                                                                                  
-
 ### Configure the Volume
 
 ```
@@ -319,7 +295,7 @@ add value
 network:
   dhcp: on
 universal: false
-modules: -*,ext4
+modules: -*,ext4,(tambahain nvme jika laptop menggunakan nvme)
 extra_files: fsck,fsck.ext4
 strip: true
 enable_lvm: true
@@ -362,6 +338,11 @@ default  booster.conf
 ```
 bootctl --graceful update 
 ```
+## desktop
+```
+pacman -S xfce4 sddm pipewire pipewire-pulse pipewire-alsa pipewire-jack network-manager-applet
+```
+
 ## booting
 ```
 exit
@@ -372,3 +353,15 @@ umount -R /mnt
 ```
 reboot
 ```
+
+## after booting
+```
+sudo chown -R nama_user:nama_user /home/[nama user]
+```
+```
+sudo systemctl enable sddm
+```
+```
+reboot
+```
+
