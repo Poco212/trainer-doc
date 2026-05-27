@@ -1,4 +1,3 @@
-
 # partition
 ```
 pvcreate /dev/partition
@@ -38,7 +37,6 @@ mkfs.ext4 /dev/proc/vars
 mount --mkdir -o rw,nodev,nosuid,relatime /dev/proc/vars /mnt/var
 ```
 
-
 ## vtmp
 ```
 lvcreate -L size (G | M) proc -n vtmp
@@ -71,16 +69,23 @@ mkfs.ext4 /dev/proc/vaud
 ```
 mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vaud /mnt/var/log/audit
 ```
-
-## home
+## home public
 ```
-lvcreate -l50%FREE proc -n home
+lvcreate -L size (G | M) proc -n home
 ```
-
+```
+mkfs.ext4 /dev/proc/home
+```
+```
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/home /mnt/home
+```
+## home internal
+```
+lvcreate -l50%FREE proc -n user
+```
 ## setup luks partition home
-
 ```
-cryptsetup luksFormat /dev/proc/[nama user]
+cryptsetup luksFormat /dev/proc/user
 ```
 
 # packages
