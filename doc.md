@@ -293,6 +293,9 @@ session     optional    pam_mount.so
 
 ## booster
 ```
+rm -fr booster-linux-lts.img
+```
+```
 nvim /etc/booster.yaml
 ```
 add value
@@ -313,14 +316,18 @@ for cek kernel version
 ls /usr/lib/modules
 ```
 ```
-booster build --kernel-version <version> /boot/booster-linux-lts-new.img
-```
-```
-rm -fr booster-linux-lts.img
+booster build --kernel-version <version> /boot/booster-linux-lts.img
 ```
 ## refind-boot
 ```
 refind-install --usedefault /dev/partition_boot 
+```
+```
+nvim /boot/refind.conf
+```
+add value
+```
+"Boot using booster lts"  "root=/dev/proc/root rw initrd=\booster-linux-lts.img"
 ```
 ## desktop
 ```
