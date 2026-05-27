@@ -1,3 +1,4 @@
+
 # partition
 ```
 pvcreate /dev/partition
@@ -37,6 +38,7 @@ mkfs.ext4 /dev/proc/vars
 mount --mkdir -o rw,nodev,nosuid,relatime /dev/proc/vars /mnt/var
 ```
 
+
 ## vtmp
 ```
 lvcreate -L size (G | M) proc -n vtmp
@@ -69,6 +71,7 @@ mkfs.ext4 /dev/proc/vaud
 ```
 mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vaud /mnt/var/log/audit
 ```
+
 ## home public
 ```
 lvcreate -L size (G | M) proc -n home
@@ -79,18 +82,18 @@ mkfs.ext4 /dev/proc/home
 ```
 mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/home /mnt/home
 ```
+
 ## home internal
 ```
-lvcreate -l50%FREE proc -n user
+lvcreate -l50%FREE proc -n priv
 ```
-## setup luks partition home
 ```
-cryptsetup luksFormat /dev/proc/user
+cryptsetup luksFormat /dev/proc/priv
 ```
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster refind efibootmgr networkmanager pam_mount
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster networkmanager pam_mount
 ```
 # fstab
 ```
@@ -149,19 +152,19 @@ LC_ALL=en_US.UTF-8
 
 ## pam_mount
 ```
-cryptsetup luksOpen /dev/proc/[nama user] [nama device]
+cryptsetup luksOpen /dev/proc/priv internal
 ```
 
 ```
-mkdir -p /home/[nama user]
+mkdir -p /home/user
 ```
 
 ```
-useradd -d /home/[user name] user
+useradd -d /home/user user_name
 ```
 
 ```
-chown -R user:user /home/[user name]
+chown -R user_name:user_name /home/user
 ```
 
 ```
@@ -221,8 +224,8 @@ nvim /etc/security/pam_mount.conf.xml
 <volume 
     user="[user name]" 
     fstype="crypt" 
-    path="/dev/proc/[user name]" 
-    mountpoint="/home/[user name]" 
+    path="/dev/proc/priv" 
+    mountpoint="/home/user" 
 />
 		<!-- pam_mount parameters: Volume-related -->
 
@@ -239,8 +242,8 @@ Edit the `pam_mount` configuration file at `/etc/security/pam_mount.conf.xml`. Y
 <volume 
     user="[user name]" 
     fstype="crypt" 
-    path="/dev/proc/[user name]" 
-    mountpoint="/home/[user name]" 
+    path="/dev/proc/priv" 
+    mountpoint="/home/user" 
 />
 ```
 *   **path:** The identifier for your encrypted partition (e.g., `/dev/sdb1` or a UUID).
@@ -293,9 +296,6 @@ session     optional    pam_mount.so
 
 ## booster
 ```
-rm -fr booster-linux-lts.img
-```
-```
 nvim /etc/booster.yaml
 ```
 add value
@@ -316,18 +316,35 @@ for cek kernel version
 ls /usr/lib/modules
 ```
 ```
-booster build --kernel-version <version> /boot/booster-linux-lts.img
-```
-## refind-boot
-```
-refind-install --usedefault /dev/partition_boot 
+booster build --kernel-version <version> /boot/booster-linux-lts-new.img
 ```
 ```
-nvim /boot/refind.conf
+rm -fr booster-linux-lts.img
 ```
-add value
+## systemd-boot
 ```
-"Boot using booster lts"  "root=/dev/proc/root rw initrd=\booster-linux-lts.img"
+bootctl --path=/boot install
+```
+```
+nvim /boot/loader/entries/booster.conf
+```
+```
+title    arch with booster
+linux    /vmlinuz-linux-lts
+initrd   /intel-ucode.img
+initrd   /booster-linux-lts-new.img
+options  root=/dev/proc/root rw
+```
+```
+nvim /boot/loader/loader.conf
+```
+tambahkan paling bawah
+
+```
+default  booster.conf
+```
+```
+bootctl --graceful update 
 ```
 ## desktop
 ```
@@ -355,4 +372,3 @@ sudo systemctl enable sddm
 ```
 reboot
 ```
-
