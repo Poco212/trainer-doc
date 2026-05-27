@@ -85,7 +85,7 @@ cryptsetup luksFormat /dev/proc/[nama user]
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster networkmanager pam_mount
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware lvm2 base base-devel neovim openssh superfile podman podman-desktop iptables mpd mpc mpv keepassxc secrets booster refind efibootmgr networkmanager pam_mount
 ```
 # fstab
 ```
@@ -95,7 +95,7 @@ genfstab -U /mnt > /mnt/etc/fstab
 # tmpfs
 
 ```
-echo "tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime,size=1G 0 0" >> /etc/mnt/fstab
+echo "tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime,size=1G 0 0" >> /mnt/etc/fstab
 ```
 
 # chroot
@@ -313,30 +313,9 @@ booster build --kernel-version <version> /boot/booster-linux-lts-new.img
 ```
 rm -fr booster-linux-lts.img
 ```
-## systemd-boot
+## refind-boot
 ```
-bootctl --path=/boot install
-```
-```
-nvim /boot/loader/entries/booster.conf
-```
-```
-title    arch with booster
-linux    /vmlinuz-linux-lts
-initrd   /intel-ucode.img
-initrd   /booster-linux-lts-new.img
-options  root=/dev/proc/root rw
-```
-```
-nvim /boot/loader/loader.conf
-```
-tambahkan paling bawah
-
-```
-default  booster.conf
-```
-```
-bootctl --graceful update 
+refind-install --usedefault /dev/partition_boot 
 ```
 ## desktop
 ```
