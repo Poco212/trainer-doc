@@ -154,6 +154,9 @@ LC_ALL=en_US.UTF-8
 ```
 cryptsetup luksOpen /dev/proc/priv internal
 ```
+```
+mkfs.ext4 /dev/mapper/internal
+```
 
 ```
 mkdir -p /home/user
