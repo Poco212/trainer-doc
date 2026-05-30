@@ -233,6 +233,9 @@ default_uki="/boot/efi/linux/arch-linux-hardened.efi"
 ```
 bootctl --path=/boot install
 ```
+```
+mkinitcpio -P
+```
 
 ## booting
 ```
