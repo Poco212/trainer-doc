@@ -188,7 +188,7 @@ echo "rw" > /etc/cmdline.d/02-misc.conf
 rm -fr /boot/initramfs-linux-*
 ```
 ```
-mkdir -p /boot/efi /boot/efi/linux /boot/efi/systemd /boot/efi/rescue /boot/efi/boot /boot/kernel
+mkdir -p /boot/efi /boot/efi/linux /boot/efi/systemd /boot/efi/boot /boot/kernel
 ```
 ```
 mv /boot/intel-ucode.img /boot/vmlinuz-linux-* /boot/kernel
