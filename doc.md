@@ -1,21 +1,27 @@
 
 # partition
 ```
-pvcreate /dev/partition
+cryptsetup luksFormat /dev/partition_name
 ```
 ```
-vgcreate proc /dev/partition
+cryptsetup luksOpen /dev/partition_name device_name
+```
+```
+pvcreate /dev/mapper/device_name
+```
+```
+vgcreate group_name /dev/mapper/device_name
 ```
 
 ## root
 ```
-lvcreate -L size (G | M) proc -n root
+lvcreate -L size (G | M) group_name -n root
 ```
 ```
 mkfs.ext4 /dev/proc/root
 ```
 ```
-mount /dev/proc/root /mnt
+mount /dev/group_name/root /mnt
 ```
 
 ## boot
@@ -29,66 +35,58 @@ mount --mkdir -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/paritition /mnt/boot
 
 ## var
 ```
-lvcreate -L size (G | M) proc -n vars
+lvcreate -L size (G | M) group_name -n volume_name (example:vars)
 ```
 ```
-mkfs.ext4 /dev/proc/vars
+mkfs.ext4 /dev/group_name/volume_name
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,relatime /dev/proc/vars /mnt/var
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/volume_name /mnt/var
 ```
 
 
 ## vtmp
 ```
-lvcreate -L size (G | M) proc -n vtmp
+lvcreate -L size (G | M) group_name -n volume_name (example:vtmp)
 ```
 ```
-mkfs.ext4 /dev/proc/vtmp
+mkfs.ext4 /dev/group_name/volume_name
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vtmp /mnt/var/tmp
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/volume_name /mnt/var/tmp
 ```
 
 ## vlog
 ```
-lvcreate -L size (G | M) proc -n vlog
+lvcreate -L size (G | M) group_name -n volume_name (example:vlog)
 ```
 ```
-mkfs.ext4 /dev/proc/vlog
+mkfs.ext4 /dev/group_name/volume_name
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vlog /mnt/var/log
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/volume_name /mnt/var/log
 ```
 
 ## vaud
 ```
-lvcreate -L size (G | M) proc -n vaud
+lvcreate -L size (G | M) group_name -n volume_name (example:vaud)
 ```
 ```
-mkfs.ext4 /dev/proc/vaud
+mkfs.ext4 /dev/group_name/volume_name
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vaud /mnt/var/log/audit
-```
-
-## home public
-```
-lvcreate -L size (G | M) proc -n home
-```
-```
-mkfs.ext4 /dev/proc/home
-```
-```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/home /mnt/home
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/volume_name /mnt/var/log/audit
 ```
 
-## home internal
+## home
 ```
-lvcreate -l50%FREE proc -n priv
+lvcreate -L size (G | M) group_name -n home
 ```
 ```
-cryptsetup luksFormat /dev/proc/priv
+mkfs.ext4 /dev/group_name/home
+```
+```
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/home /mnt/home
 ```
 
 # packages
@@ -99,7 +97,6 @@ pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware lvm2 base b
 ```
 genfstab -U /mnt > /mnt/etc/fstab
 ```
-
 # tmpfs
 
 ```
