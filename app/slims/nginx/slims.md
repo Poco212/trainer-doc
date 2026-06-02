@@ -56,6 +56,24 @@ sudo tar -xf slims9_bulian-9.7.2.tar.gz -C /var/www/html/
 ```
 sudo mv /var/www/html/slims9_bulian-9.7.2 /var/www/html/slims
 ```
+### php
+```
+sudo nvim /etc/php/php.ini
+```
+cari dan uncommenting seperti dibawah
+```
+extension=curl
+extension=gd
+extension=iconv
+extension=mysqli
+extension=pdo_mysql
+```
+```
+sudo systemctl start php-fpm
+```
+```
+sudo systemctl enable php-fpm
+```
 ### nginx
 ```
 sudo mkdir -p /etc/nginx/sites-available
