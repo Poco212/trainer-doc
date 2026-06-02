@@ -70,3 +70,29 @@ tambahkan ke paling bawah. sebelum tutup `}` terakhir
 ```
 include /etc/nginx/sites-enabled/*;
 ```
+```
+sudo nvim /etc/nginx/sites-available/slims.conf
+```
+tambahkan sesuai dengan dibawah
+```
+server {
+    listen 80;
+    server_name slims.example.org;
+    return 301 https://$host$request_uri;
+    root /var/www/html/slims;
+}
+```
+```
+sudo ln -s /etc/nginx/sites-available/slims.conf /etc/nginx/sites-enabled/
+```
+```
+sudo nginx -t
+```
+```
+sudo systemctl restart nginx
+```
+## access
+akses di browser
+```
+http://ip_address/slims
+```
