@@ -66,7 +66,20 @@ sudo mkdir -p /etc/nginx/sites-enabled
 ```
 sudo nvim /etc/nginx/nginx.conf
 ```
-tambahkan ke paling bawah. sebelum tutup `}` terakhir
+commenting bagian yang dibawah
+```
+    #server {
+        #listen       80;
+        #server_name  localhost;
+
+        #access_log  logs/host.access.log  main;
+
+        #location / {
+        #    root   /usr/share/nginx/html;
+        #    index  index.html index.htm;
+        #}
+```
+setelah dicommenting, tambahkan ke paling bawah. sebelum tutup `}` terakhir
 ```
 include /etc/nginx/sites-enabled/*;
 ```
