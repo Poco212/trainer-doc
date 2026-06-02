@@ -288,5 +288,8 @@ sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
 ```
 sudo firewall-cmd --zone=public --add-service=ssh --permanent
 ```
+```
+sudo firewall-cmd --reload
+```
 
 ### setup hardening kernel
