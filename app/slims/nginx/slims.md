@@ -48,7 +48,7 @@ exit;
 wget https://github.com/slims/slims9_bulian/releases/download/v9.7.2/slims9_bulian-9.7.2.tar.gz
 ```
 ```
-mkdir -p /var/www/html
+sudo mkdir -p /var/www/html
 ```
 ```
 sudo tar -xf slims9_bulian-9.7.2.tar.gz -C /var/www/html/
@@ -57,6 +57,12 @@ sudo tar -xf slims9_bulian-9.7.2.tar.gz -C /var/www/html/
 sudo mv /var/www/html/slims9_bulian-9.7.2 /var/www/html/slims
 ```
 ### nginx
+```
+sudo mkdir -p /etc/nginx/sites-available
+```
+```
+sudo mkdir -p /etc/nginx/sites-enabled
+```
 ```
 sudo nvim /etc/nginx/nginx.conf
 ```
