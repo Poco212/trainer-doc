@@ -20,7 +20,13 @@ sudo systemctl start mariadb
 ```
 sudo systemctl enable mariadb
 ```
-## databse
+## database
+```
+sudo mysql -u root -p
+```
+```
+create database slimsdb;
+```
 ```
 
 ```
