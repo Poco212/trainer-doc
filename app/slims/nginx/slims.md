@@ -73,6 +73,7 @@ extension=gd
 extension=iconv
 extension=mysqli
 extension=pdo_mysql
+extension=gettext
 ```
 ```
 sudo systemctl start php-fpm
