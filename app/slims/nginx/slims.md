@@ -1,4 +1,4 @@
 ## preparation
 ```
-sudo pacman -S php mariadb nginx 
+sudo pacman -S php php-fpm php-gd mariadb nginx 
 ```
