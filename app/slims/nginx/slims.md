@@ -152,9 +152,25 @@ tambahkan sesuai dengan dibawah
 ```
 server {
     listen 80;
-    server_name slims.example.org;
-    return 301 https://$host$request_uri;
+    server_name _; # Menggunakan '_' berarti menerima akses dari IP server langsung
+
     root /var/www/html/slims;
+    index index.php index.html index.htm;
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Teruskan file PHP ke PHP-FPM socket bawaan Arch Linux
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
 }
 ```
 ```
@@ -169,5 +185,5 @@ sudo systemctl restart nginx
 ## access
 akses di browser
 ```
-http://ip_address/slims
+http://ip_address
 ```
