@@ -140,6 +140,9 @@ sudo ln -s /etc/nginx/sites-available/slims.conf /etc/nginx/sites-enabled/
 sudo chown -R http:http /var/www/html
 ```
 ```
+sudo chmod -R 755 /var/www/html/slims
+```
+```
 sudo nginx -t
 ```
 ```
