@@ -296,7 +296,7 @@ sudo firewall-cmd --reload
 #### example for disale module kernel
 for check wireless device
 ```
-lspci -knnd ::2080
+lspci -knnd ::0280
 ```
 value
 ```
