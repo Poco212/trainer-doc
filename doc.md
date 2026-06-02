@@ -89,6 +89,18 @@ mkfs.ext4 -b 4096 /dev/group_name/home
 mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/home /mnt/home
 ```
 
+
+## dock
+```
+lvcreate -l50%FREE group_name -n dock
+```
+```
+mkfs.ext4 -b 4096 /dev/group_name/dock
+```
+```
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/dock /mnt/var/lib/docker
+```
+
 # packages
 ```
 pacstrap /mnt intel-ucode linux-hardened linux-hardened-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep 
@@ -162,12 +174,6 @@ passwd username
 ```
 echo "username ALL=(ALL:ALL) ALL" > /etc/sudoers.d/none
 ```
-## kernel hardening
-```
-nvim /etc/sysctl.d/10-secs.conf
-```
-```
-```
 
 ## cmdline
 ```
@@ -231,10 +237,29 @@ default_uki="/boot/efi/linux/arch-linux-hardened.efi"
 
 ```
 ```
+touch /etc/vconsole.conf
+```
+```
 bootctl --path=/boot install
 ```
 ```
 mkinitcpio -P
+```
+## service
+```
+systemctl enable systemd-networkd
+```
+
+```
+systemctl enable systemd-resolved
+```
+
+```
+systemctl enable iwd
+```
+
+```
+systemctl enable firewalld
 ```
 
 ## booting
@@ -247,3 +272,21 @@ umount -R /mnt
 ```
 reboot
 ```
+
+## after booting
+### setup firewalld
+1. check zone. example in below
+```
+sudo firewall-cmd --list-all-zone
+```
+2. allow port. example in below
+
+```
+sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
+```
+3. allow service. example in below
+```
+sudo firewall-cmd --zone=public --add-service=ssh --permanent
+```
+
+### setup hardening kernel
