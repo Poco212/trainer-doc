@@ -28,11 +28,12 @@ sudo mysql -u root -p
 sudo mysql_secure_installation
 ```
 ```
-create database slimsdb;
+create database [database];
 ```
 ```
 CREATE USER '[user]'@'localhost' IDENTIFIED BY '[password]';
 ```
 ```
-
+GRANT ALL PRIVILEGES ON [database].* TO '[user]'@'localhost';
 ```
+
