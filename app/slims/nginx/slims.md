@@ -22,10 +22,10 @@ sudo systemctl enable mariadb
 ```
 ## database
 ```
-sudo mysql -u root -p
-```
-```
 sudo mysql_secure_installation
+```
+```
+sudo mysql -u root -p
 ```
 ```
 CREATE DATABASE [database];
