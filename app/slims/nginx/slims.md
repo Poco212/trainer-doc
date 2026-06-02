@@ -25,6 +25,9 @@ sudo systemctl enable mariadb
 sudo mysql -u root -p
 ```
 ```
+sudo mysql_secure_installation
+```
+```
 create database slimsdb;
 ```
 ```
