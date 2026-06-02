@@ -294,6 +294,18 @@ sudo firewall-cmd --reload
 
 ### setup hardening kernel
 #### example for disale module kernel
+for check wireless device
+```
+lspci -knnd ::2080
+```
+value
+```
+02:00.0 Network controller [0280]: Intel Corporation Dual Band Wireless-AC 3168NGW [Stone Peak] [8086:24fb] (rev 10)
+	Subsystem: Intel Corporation Device [8086:2110]
+	Kernel driver in use: iwlwifi
+	Kernel modules: iwlwifi
+```
+> iwlwifi is a module
 ```
 nvim /etc/modprobe.d/01-hard.conf
 ```
@@ -301,6 +313,8 @@ value
 ```
 install usb-storage /bin/false
 blacklist usb-storage
+install iwlwifi /bin/false
+blacklist iwlwifi
 ```
 ```
 modprobe -r usb-storage
@@ -308,5 +322,6 @@ modprobe -r usb-storage
 ```
 mkinitcpio -P
 ```
+ 
 
 
