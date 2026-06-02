@@ -1,7 +1,17 @@
 ## preparation
 ```
-sudo pacman -S php php-fpm php-gd mariadb nginx-mainline
+sudo pacman -S mariadb nginx-mainline
 ```
+```
+git clone https://aur.archlinux.org/php56.git
+```
+```
+cd php56
+```
+```
+makepkg -sri
+```
+
 ## service
 ### nginx
 ```
