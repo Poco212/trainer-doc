@@ -31,5 +31,8 @@ sudo mysql_secure_installation
 create database slimsdb;
 ```
 ```
+CREATE USER '[user]'@'localhost' IDENTIFIED BY '[password]';
+```
+```
 
 ```
