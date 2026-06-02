@@ -3,13 +3,16 @@
 sudo pacman -S mariadb nginx-mainline
 ```
 ```
-git clone https://aur.archlinux.org/php56.git
+git clone https://aur.archlinux.org/yay.git
 ```
 ```
-cd php56
+cd yay
 ```
 ```
 makepkg -sri
+```
+```
+yay -S php56 
 ```
 
 ## service
