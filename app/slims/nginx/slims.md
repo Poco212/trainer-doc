@@ -28,7 +28,7 @@ sudo mysql -u root -p
 sudo mysql_secure_installation
 ```
 ```
-create database [database];
+CREATE DATABASE [database];
 ```
 ```
 CREATE USER '[user]'@'localhost' IDENTIFIED BY '[password]';
@@ -36,4 +36,10 @@ CREATE USER '[user]'@'localhost' IDENTIFIED BY '[password]';
 ```
 GRANT ALL PRIVILEGES ON [database].* TO '[user]'@'localhost';
 ```
-
+```
+FLUSH PRIVILEGES;
+```
+```
+exit;
+```
+## config
