@@ -66,6 +66,10 @@ sudo mkdir -p /etc/nginx/sites-enabled
 ```
 sudo nvim /etc/nginx/nginx.conf
 ```
+tambahkan di paling atas
+```
+user http;
+```
 commenting bagian yang dibawah
 ```
     #server {
@@ -131,6 +135,9 @@ server {
 ```
 ```
 sudo ln -s /etc/nginx/sites-available/slims.conf /etc/nginx/sites-enabled/
+```
+```
+sudo chown -R http:http /var/www/html
 ```
 ```
 sudo nginx -t
