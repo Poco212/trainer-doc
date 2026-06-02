@@ -51,6 +51,12 @@ wget https://github.com/slims/slims9_bulian/releases/download/v9.7.2/slims9_buli
 sudo mkdir -p /var/www/html
 ```
 ```
+sudo chown -R http:http /var/www/html
+```
+```
+sudo chmod 755 /var/www/html/slims
+```
+```
 sudo tar -xf slims9_bulian-9.7.2.tar.gz -C /var/www/html/
 ```
 ```
@@ -153,12 +159,6 @@ server {
 ```
 ```
 sudo ln -s /etc/nginx/sites-available/slims.conf /etc/nginx/sites-enabled/
-```
-```
-sudo chown -R http:http /var/www/html
-```
-```
-sudo chmod -R 755 /var/www/html/slims
 ```
 ```
 sudo nginx -t
