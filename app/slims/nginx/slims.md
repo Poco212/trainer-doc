@@ -12,8 +12,15 @@ sudo systemctl enable nginx
 ```
 ### mariadb
 ```
+sudo mariadb-install-db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+```
+```
 sudo systemctl start mariadb
 ```
 ```
 sudo systemctl enable mariadb
+```
+## databse
+```
+
 ```
