@@ -293,3 +293,20 @@ sudo firewall-cmd --reload
 ```
 
 ### setup hardening kernel
+#### example for disale module kernel
+```
+nvim /etc/modprobe.d/01-hard.conf
+```
+value
+```
+install usb-storage /bin/false
+blacklist usb-storage
+```
+```
+modprobe -r usb-storage
+```
+```
+mkinitcpio -P
+```
+
+
