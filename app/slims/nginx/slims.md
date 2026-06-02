@@ -43,3 +43,9 @@ FLUSH PRIVILEGES;
 exit;
 ```
 ## config
+```
+wget https://github.com/slims/slims9_bulian/releases/download/v9.7.2/slims9_bulian-9.7.2.tar.gz
+```
+```
+
+```
