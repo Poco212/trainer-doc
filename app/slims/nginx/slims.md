@@ -51,5 +51,4 @@ sudo tar -xf slims9_bulian-9.7.2.tar.gz -C /var/www/html
 ```
 ```
 sudo mv /var/www/html/slims9_bulian-9.7.2 /var/www/html/slims
-
 ```
