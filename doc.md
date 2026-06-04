@@ -18,7 +18,7 @@ vgcreate group_name /dev/mapper/device_name
 lvcreate -L size (G | M) group_name -n root
 ```
 ```
-mkfs.ext4 -b 4096 /dev/proc/root
+mkfs.ext4 -b 4096 /dev/group_name/root
 ```
 ```
 mount /dev/group_name/root /mnt
@@ -307,7 +307,7 @@ value
 ```
 > iwlwifi is a module
 ```
-nvim /etc/modprobe.d/01-hard.conf
+sudo nvim /etc/modprobe.d/01-hard.conf
 ```
 value
 ```
@@ -317,10 +317,10 @@ install iwlwifi /bin/false
 blacklist iwlwifi
 ```
 ```
-modprobe -r usb-storage
+sudo modprobe -r usb-storage
 ```
 ```
-mkinitcpio -P
+sudo mkinitcpio -P
 ```
  
 
