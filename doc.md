@@ -1,7 +1,7 @@
 
 # partition
 ```
-cryptsetup luksFormat --sector-size=4096  /dev/partition_name
+cryptsetup luksFormat /dev/partition_name
 ```
 ```
 cryptsetup luksOpen /dev/partition_name device_name
@@ -103,7 +103,7 @@ mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/dock /mnt/var/lib/dock
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-hardened linux-hardened-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep 
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep docker 
 ```
 # fstab
 ```
@@ -193,46 +193,37 @@ echo "rw" > /etc/cmdline.d/02-misc.conf
 ```
 rm -fr /boot/initramfs-linux-*
 ```
-```
-mkdir -p /boot/efi /boot/efi/linux /boot/efi/systemd /boot/efi/boot /boot/kernel
-```
-```
-mv /boot/intel-ucode.img /boot/vmlinuz-linux-* /boot/kernel
-```
 
 ## initramfs
 ```
-mv /etc/mkinitcpio.conf /etc/mkinitcpio.d/default.conf
-```
-```
-nvim /etc/mkinitcpio.d/default.conf
+nvim /etc/mkinitcpio.conf
 ```
 add `sd-encrypt` and `lvm` after `sd-vconsole`
 ```
 HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block sd-encrypt lvm2 filesystems fsck)
 ```
 ```
-nvim /etc/mkinitcpio.d/linux-hardened.preset
+nvim /etc/mkinitcpio.d/linux-lts.preset
 ```
 the same as the configuration below
 ```
-# mkinitcpio preset file for the 'linux-hardened' package
+# mkinitcpio preset file for the 'linux-lts' package
 
-ALL_config="/etc/mkinitcpio.d/default.conf"
-ALL_kver="/boot/kernel/vmlinuz-linux-lts"
-ALL_kerneldest="/boot/kernel/vmlinuz-linux-hardened"
+ALL_config="/etc/mkinitcpio.conf"
+ALL_kver="/boot/vmlinuz-linux-lts"
+ALL_kerneldest="/boot/vmlinuz-linux-lts"
 
 PRESETS=('default')
 #PRESETS=('default' 'fallback')
 
 #default_config="/etc/mkinitcpio.conf"
-#default_image="/boot/initramfs-linux-hardened.img"
-default_uki="/boot/efi/linux/arch-linux-hardened.efi"
+#default_image="/boot/initramfs-linux-lts.img"
+default_uki="/EFI/Linux/arch-linux-lts.efi"
 #default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
 
 #fallback_config="/etc/mkinitcpio.conf"
-#fallback_image="/boot/initramfs-linux-hardened-fallback.img"
-#fallback_uki="/efi/EFI/Linux/arch-linux-hardened-fallback.efi"
+#fallback_image="/boot/initramfs-linux-lts-fallback.img"
+#fallback_uki="/efi/EFI/Linux/arch-linux-lts-fallback.efi"
 #fallback_options="-S autodetect"
 
 ```
