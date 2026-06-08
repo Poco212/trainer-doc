@@ -314,3 +314,26 @@ sudo modprobe -r usb-storage
 sudo mkinitcpio -P
 ```
  
+### setup docker swarm
+generate token
+```
+sudo docker swarm init --advertise-addr [ip_address]:2377
+```
+output
+```
+docker swarm join --token SWMTKN-1-49cw7zg6dcbxis48a24cohhbiq2lcrhckde2cpr3stqljg8sgn-7ej9czow9ibhyhiplz4x48k8a 192.168.2.117:2377
+```
+cek node atau worker docker
+```
+sudo docker node ls
+```
+output
+```
+ID                            HOSTNAME   STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
+st8yyl6068gdozza5lnz8sodo *   madara     Ready     Active         Leader           29.5.2
+38vgyaaeom90kala4wzsnlx9l     system     Ready     Active                          29.5.2
+```
+#### testing 
+```
+
+```
