@@ -321,7 +321,7 @@ sudo docker swarm init --advertise-addr [ip_address]:2377
 ```
 output
 ```
-docker swarm join --token SWMTKN-1-49cw7zg6dcbxis48a24cohhbiq2lcrhckde2cpr3stqljg8sgn-7ej9czow9ibhyhiplz4x48k8a 192.168.2.117:2377
+sudo docker swarm join --token SWMTKN-1-49cw7zg6dcbxis48a24cohhbiq2lcrhckde2cpr3stqljg8sgn-7ej9czow9ibhyhiplz4x48k8a 192.168.2.117:2377
 ```
 cek node atau worker docker
 ```
