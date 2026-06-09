@@ -450,6 +450,16 @@ atau
 http://IP-SERVER
 ```
 
+--- 
+
+## firewalld
+
+```
+sudo firewall-cmd --list-all-zone
+sudo firewall-cmd --zone=public --add-service=http --permanent
+sudo firewall-cmd --reload
+```
+
 ---
 
 ## Step 19
