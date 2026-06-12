@@ -178,7 +178,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.labels.role == manager
+          - node.labels.role == backend
 
   opendocman:
     image: opendocman:patched
@@ -203,7 +203,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.labels.role == manager
+          - node.labels.role == frontend
 
 networks:
   opendocman-net:
