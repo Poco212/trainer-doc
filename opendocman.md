@@ -50,7 +50,7 @@ docker info
 Pada node manager:
 
 ```bash
-docker swarm init
+docker swarm init --advertise-addr [ip manager]
 ```
 
 Verifikasi:
