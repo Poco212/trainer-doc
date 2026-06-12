@@ -203,7 +203,7 @@ services:
     image: mariadb:10.11
 
     env_file:
-      -.env
+      - .env
 
     volumes:
       - /srv/opendocman/mysql:/var/lib/mysql
@@ -220,17 +220,8 @@ services:
   opendocman:
     image: opendocman:patched
 
-    environment:
-      APP_DB_HOST: db
-      APP_DB_NAME: opendocman
-      APP_DB_USER: userdocman
-      APP_DB_PASS: StrongPassword123
-
-      ODM_HOSTNAME: docs.example.com
-
-      ADMIN_PASSWORD: AdminPassword123
-
-      SESSION_SECRET: ganti_dengan_session_secret
+    env_file:
+      - .env
 
     volumes:
       - /srv/opendocman/files:/var/www/html/files-data
@@ -255,14 +246,6 @@ networks:
   opendocman-net:
     external: true
 ```
-
-**Penting:** Jangan gunakan:
-
-```yaml
-MYSQL_DATABASE: ${MYSQL_DATABASE}
-```
-
-karena sebelumnya terbukti kosong saat deploy menggunakan Swarm.
 
 ---
 
