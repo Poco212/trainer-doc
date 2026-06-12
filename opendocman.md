@@ -85,8 +85,6 @@ cd opendocman
 Jalankan script bawaan repository:
 
 ```bash
-chmod +x scripts/generate-env-secrets.sh
-
 ./scripts/generate-env-secrets.sh
 ```
 
