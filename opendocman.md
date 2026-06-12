@@ -1,21 +1,3 @@
-# Deploy OpenDocMan di Docker Swarm + Apache Reverse Proxy (Arch Linux)
-
-Panduan ini berdasarkan repository resmi:
-
-[OpenDocMan GitHub Repository](https://github.com/opendocman/opendocman?utm_source=chatgpt.com)
-
-Dengan penyesuaian untuk:
-
-* Arch Linux
-* Docker Swarm
-* Apache Reverse Proxy
-* Image OpenDocMan hasil build sendiri
-* Patch CSRF login (jika diperlukan)
-* Persistent storage
-* Tanpa Docker Compose
-
----
-
 # 1. Install Docker
 
 Update sistem:
@@ -64,6 +46,35 @@ Harus muncul status:
 ```text
 Leader
 ```
+
+---
+
+## 6. Beri Label Node
+
+Supaya service bisa ditempatkan di node tertentu.
+
+Di PC1:
+
+```bash
+docker node update \
+  --label-add role=frontend \
+  pc1
+```
+
+```bash
+docker node update \
+  --label-add role=backend \
+  pc2
+```
+
+Cek:
+
+```bash
+docker node inspect pc1 --pretty
+docker node inspect pc2 --pretty
+```
+
+---
 
 ---
 
