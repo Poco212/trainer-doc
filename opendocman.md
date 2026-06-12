@@ -202,11 +202,8 @@ services:
   db:
     image: mariadb:10.11
 
-    environment:
-      MYSQL_DATABASE: opendocman
-      MYSQL_USER: userdocman
-      MYSQL_PASSWORD: StrongPassword123
-      MYSQL_ROOT_PASSWORD: StrongRootPassword123
+    env_file:
+      -.env
 
     volumes:
       - /srv/opendocman/mysql:/var/lib/mysql
