@@ -99,54 +99,6 @@ Jalankan script bawaan repository:
 ./scripts/generate-env-secrets.sh
 ```
 
-Edit file:
-
-```bash
-nvim .env
-```
-
-Contoh:
-
-```env
-MYSQL_DATABASE=opendocman
-MYSQL_USER=userdocman
-MYSQL_PASSWORD=StrongPassword123
-MYSQL_ROOT_PASSWORD=StrongRootPassword123
-
-APP_DB_HOST=db
-DB_PORT=3306
-
-APP_DB_NAME=opendocman
-APP_DB_USER=userdocman
-APP_DB_PASS=StrongPassword123
-
-ODM_HOSTNAME=docs.example.com
-
-ADMIN_PASSWORD=AdminPassword123
-
-SESSION_SECRET=<hasil_generate_script>
-```
-
----
-
-# 5. Patch Login Token (Jika Dibutuhkan)
-
-Jika Anda mengalami error login admin dengan pesan token tidak valid.
-
-Edit:
-
-```bash
-nvim application/controllers/index.php
-```
-
-Cari:
-
-```php
-if (isset($GLOBALS['csrf']) && !$GLOBALS['csrf']->validateToken($_POST)) {
-```
-
-Lakukan patch sesuai kebutuhan Anda.
-
 ---
 
 # 6. Build Image
@@ -226,7 +178,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.role == manager
+          - node.labels.role == manager
 
   opendocman:
     image: opendocman:patched
@@ -251,7 +203,7 @@ services:
       replicas: 1
       placement:
         constraints:
-          - node.role == manager
+          - node.labels.role == manager
 
 networks:
   opendocman-net:
@@ -338,7 +290,7 @@ LoadModule rewrite_module modules/mod_rewrite.so
 Buat file:
 
 ```bash
-sudo nvim /etc/httpd/conf/extra/opendocman.conf
+sudo nvim /etc/httpd/conf/conf.d/opendocman.conf
 ```
 
 Isi:
@@ -346,7 +298,7 @@ Isi:
 ```apache
 <VirtualHost *:80>
 
-    ServerName docs.example.com
+    ServerName [domain]
 
     ProxyPreserveHost On
     ProxyRequests Off
