@@ -1,0 +1,10 @@
+```
+sudo nvim /etc/httpd/conf/httpd.conf
+```
+uncommenting
+```
+LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+```
+ --
+        
