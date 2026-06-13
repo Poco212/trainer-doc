@@ -325,7 +325,7 @@ sudo nvim /etc/httpd/conf/httpd.conf
 Tambahkan di bagian bawah:
 
 ```apache
-Include conf/extra/opendocman.conf
+Include conf/conf.d/opendocman.conf
 ```
 
 ---
