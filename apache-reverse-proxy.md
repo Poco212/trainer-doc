@@ -1,4 +1,7 @@
 ```
+sudo pacman -S apache2
+```
+```
 sudo a2enmod proxy
 ```
 ```
