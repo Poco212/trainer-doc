@@ -2,6 +2,9 @@
 sudo pacman -S apache2
 ```
 ```
+sudo systemctl enable --now httpd
+```
+```
 sudo a2enmod proxy
 ```
 ```
