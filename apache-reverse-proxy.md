@@ -48,4 +48,7 @@ sudo nvim /etc/hosts
 ```
 [masukin ip nya]      [masukin domain sesuai dengan apache]
 ```
-        
+
+```
+sudo systemctl restart httpd
+```
