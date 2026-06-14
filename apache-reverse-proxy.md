@@ -42,4 +42,10 @@ sudo apachectl configtest
 ```
 sudo systemctl restart httpd
 ```
+```
+sudo nvim /etc/hosts
+```
+```
+[masukin ip nya]      [masukin domain sesuai dengan apache]
+```
         
