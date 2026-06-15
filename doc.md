@@ -92,18 +92,18 @@ mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/home /mnt/home
 
 ## dock
 ```
-lvcreate -l50%FREE group_name -n dock
+lvcreate -l50%FREE group_name -n podi
 ```
 ```
-mkfs.ext4 -b 4096 /dev/group_name/dock
+mkfs.ext4 -b 4096 /dev/group_name/podi
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/dock /mnt/var/lib/docker
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/podi /mnt/var/lib/containers
 ```
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep docker 
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep podman 
 ```
 # fstab
 ```
@@ -279,6 +279,11 @@ sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
 ```
 sudo firewall-cmd --zone=public --add-service=ssh --permanent
 ```
+4. allow port rich rules
+```
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="ip_admin" port port="port_apk" protocol="tcp" accept'
+
+```
 ```
 sudo firewall-cmd --reload
 ```
@@ -314,26 +319,4 @@ sudo modprobe -r usb-storage
 sudo mkinitcpio -P
 ```
  
-### setup docker swarm
-generate token
-```
-sudo docker swarm init --advertise-addr [ip_address]:2377
-```
-output
-```
-sudo docker swarm join --token SWMTKN-1-49cw7zg6dcbxis48a24cohhbiq2lcrhckde2cpr3stqljg8sgn-7ej9czow9ibhyhiplz4x48k8a 192.168.2.117:2377
-```
-cek node atau worker docker
-```
-sudo docker node ls
-```
-output
-```
-ID                            HOSTNAME   STATUS    AVAILABILITY   MANAGER STATUS   ENGINE VERSION
-st8yyl6068gdozza5lnz8sodo *   madara     Ready     Active         Leader           29.5.2
-38vgyaaeom90kala4wzsnlx9l     system     Ready     Active                          29.5.2
-```
-#### testing 
-```
 
-```
