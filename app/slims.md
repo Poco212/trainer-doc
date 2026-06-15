@@ -32,7 +32,10 @@ wget https://github.https://github.com/slims/slims9_bulian/releases/download/v9.
 unzip slims9_bulian-9.7.2.zip -d www
 ```
 ```
-cd www/slims9_bulian-9.7.2
+mv slims9_bulian-9.7.2 slims
+```
+```
+cd www/slims
 ```
 ```
 podman build -t slims-php .
