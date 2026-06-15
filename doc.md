@@ -340,7 +340,7 @@ sudo nvim /etc/subgid
 ## enable global podman
 
 ```
-systemctl enable --global podman
+sudo systemctl enable --global podman
 ```
 
 ## configure storage
@@ -350,7 +350,7 @@ mkdir -p .config/containers/
 ```
 
 ```
-sudo nvim .config/containers/storage.conf
+nvim .config/containers/storage.conf
 ```
 
 ```
@@ -364,7 +364,7 @@ mountopt = "userxattr"
 
 #### registries podman
 ```
-sudo nvim /etc/containers/registries.conf
+nvim /etc/containers/registries.conf
 ```
 ```
 unqualified-search-registries = ["docker.io"]
