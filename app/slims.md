@@ -8,7 +8,7 @@ cd .config/containers/slims
 ## podman
 ### podman network
 ```
-podman create network server_net
+podman network create server_net
 ```
 ### container database
 ```
