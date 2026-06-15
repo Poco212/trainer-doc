@@ -23,10 +23,7 @@ podman run -d \
   -v ~/.config/containers/slims/data:/var/lib/mysql \
   docker.io/library/mariadb:latest
 ```
-### container service
-```
 
-```
 ### container app atau public
 ```
 wget https://github.https://github.com/slims/slims9_bulian/releases/download/v9.7.2/slims9_bulian-9.7.2.zip
