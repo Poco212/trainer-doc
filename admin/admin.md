@@ -103,10 +103,6 @@ genfstab -U /mnt > /mnt/etc/fstab
 ```
 echo "tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime,size=1G 0 0" >> /mnt/etc/fstab
 ```
-# network
-```
-cp /etc/systemd/network/* /mnt/etc/systemd/network/
-```
 
 # chroot
 ```
@@ -282,6 +278,10 @@ sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
 3. allow service. example in below
 ```
 sudo firewall-cmd --zone=public --add-service=ssh --permanent
+```
+4. remove service
+```
+sudo firewall-cmd --zone=[zone_name] --remove-service=[service_name] --permanent
 ```
 >[Note]
 > hapus semua service dan port selain di zone public
