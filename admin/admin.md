@@ -90,20 +90,9 @@ mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/home /mnt/home
 ```
 
 
-## dock
-```
-lvcreate -l50%FREE group_name -n podi
-```
-```
-mkfs.ext4 -b 4096 /dev/group_name/podi
-```
-```
-mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/podi /mnt/var/lib/containers
-```
-
 # packages
 ```
-pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep podman openssh
+pacstrap /mnt intel-ucode linux-lts linux-lts-headers linux-firmware mkinitcpio lvm2 base base-devel neovim firewalld openssh
 ```
 # fstab
 ```
@@ -164,7 +153,7 @@ LC_ALL=en_US.UTF-8
 ```
 
 
-## user
+## user admin
 ```
 useradd -m [user_name]
 ```
@@ -173,6 +162,13 @@ passwd [user_name]
 ```
 ```
 echo "[user_name] ALL=(ALL:ALL) ALL" > /etc/sudoers.d/none
+```
+## user operator
+```
+useradd -m [user_name]
+```
+```
+passwd [user_name]
 ```
 
 ## cmdline
@@ -236,6 +232,10 @@ bootctl --path=/boot install
 ```
 mkinitcpio -P
 ```
+## desktop
+```
+pacman -S xfce4 sddm networkmanager
+```
 ## service
 ```
 systemctl enable systemd-networkd
@@ -246,11 +246,15 @@ systemctl enable systemd-resolved
 ```
 
 ```
-systemctl enable iwd
+systemctl enable NetworkManager
 ```
 
 ```
 systemctl enable firewalld
+```
+
+```
+systemctl enable sddm
 ```
 
 ## booting
@@ -278,11 +282,6 @@ sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
 3. allow service. example in below
 ```
 sudo firewall-cmd --zone=public --add-service=ssh --permanent
-```
-4. allow port rich rules
-```
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="ip_admin" port port="port_apk" protocol="tcp" accept'
-
 ```
 >[Note]
 > hapus semua service dan port selain di zone public
@@ -319,57 +318,6 @@ sudo modprobe -r usb-storage
 ```
 ```
 sudo mkinitcpio -P
-```
-### setup rootless podman
-#### adding subuid and subgid
-
-```
-sudo nvim /etc/subuid
-```
-
-```/etc/subuid
-[user]:100000:65536
-```
-
-```
-sudo nvim /etc/subgid
-```
-
-```/etc/subgid
-[user]:100000:65536
-```
-
-## enable global podman
-
-```
-sudo systemctl enable --global podman
-```
-
-## configure storage
-
-```
-mkdir -p .config/containers/
-```
-
-```
-nvim .config/containers/storage.conf
-```
-
-```
-[storage]
-driver = "overlay"
-
-[storage.options.overlay]
-mount_program = ""
-mountopt = "userxattr"
-```
-
-#### registries podman
-```
-nvim /etc/containers/registries.conf
-```
-```
-unqualified-search-registries = ["docker.io"]
 ```
  
 
