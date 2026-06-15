@@ -318,5 +318,56 @@ sudo modprobe -r usb-storage
 ```
 sudo mkinitcpio -P
 ```
+### setup rootless podman
+#### adding subuid and subgid
+
+```
+sudo nvim /etc/subuid
+```
+
+```/etc/subuid
+[user]:100000:65536
+```
+
+```
+sudo nvim /etc/subgid
+```
+
+```/etc/subgid
+[user]:100000:65536
+```
+
+## enable global podman
+
+```
+systemctl enable --global podman
+```
+
+## configure storage
+
+```
+mkdir -p .config/containers/
+```
+
+```
+sudo nvim .config/containers/storage.conf
+```
+
+```
+[storage]
+driver = "overlay"
+
+[storage.options.overlay]
+mount_program = ""
+mountopt = "userxattr"
+```
+
+#### registries podman
+```
+sudo nvim /etc/containers/registries.conf
+```
+```
+unqualified-search-registries = ["docker.io"]
+```
  
 
