@@ -1,6 +1,6 @@
 ## config
 ```
-mkdir -p .config/containers/slims/data
+mkdir -p .config/containers/slims/data .config/containers/slims/www
 ```
 ```
 cd .config/containers/slims
