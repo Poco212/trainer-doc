@@ -9,13 +9,13 @@ vgcreate proc /dev/partition
 
 ## root
 ```
-lvcreate -L size (G | M) proc -n root
+lvcreate -L size (G | M) group_name -n root
 ```
 ```
-mkfs.ext4 /dev/proc/root
+mkfs.ext4 /dev/group_name/root
 ```
 ```
-mount /dev/proc/root /mnt
+mount /dev/group_name/root /mnt
 ```
 
 ## boot
@@ -29,66 +29,76 @@ mount --mkdir -o uid=0,gid=0,fmask=0077,dmask=0077 /dev/paritition /mnt/boot
 
 ## var
 ```
-lvcreate -L size (G | M) proc -n vars
+lvcreate -L size (G | M) group_name -n vars
 ```
 ```
-mkfs.ext4 /dev/proc/vars
+mkfs.ext4 /dev/group_name/vars
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,relatime /dev/proc/vars /mnt/var
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/vars /mnt/var
 ```
 
 
 ## vtmp
 ```
-lvcreate -L size (G | M) proc -n vtmp
+lvcreate -L size (G | M) group_name -n vtmp
 ```
 ```
-mkfs.ext4 /dev/proc/vtmp
+mkfs.ext4 /dev/group_name/vtmp
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vtmp /mnt/var/tmp
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/vtmp /mnt/var/tmp
 ```
 
 ## vlog
 ```
-lvcreate -L size (G | M) proc -n vlog
+lvcreate -L size (G | M) group_name -n vlog
 ```
 ```
-mkfs.ext4 /dev/proc/vlog
+mkfs.ext4 /dev/group_name/vlog
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vlog /mnt/var/log
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/vlog /mnt/var/log
 ```
 
 ## vaud
 ```
-lvcreate -L size (G | M) proc -n vaud
+lvcreate -L size (G | M) group_name -n vaud
 ```
 ```
-mkfs.ext4 /dev/proc/vaud
+mkfs.ext4 /dev/group_name/vaud
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/vaud /mnt/var/log/audit
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/vaud /mnt/var/log/audit
 ```
 
 ## home public
 ```
-lvcreate -L size (G | M) proc -n home
+lvcreate -L size (G | M) group_name -n home
 ```
 ```
-mkfs.ext4 /dev/proc/home
+mkfs.ext4 /dev/group_name/home
 ```
 ```
-mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/proc/home /mnt/home
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/home /mnt/home
+```
+## podi
+```
+lvcreate -L size (G | M) group_name -n podi
+```
+```
+mkfs.ext4 /dev/group_name/home
+```
+```
+mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/home /mnt/var/lib/containers
 ```
 
 ## home internal
 ```
-lvcreate -l50%FREE proc -n priv
+lvcreate -l50%FREE group_name -n priv
 ```
 ```
-cryptsetup luksFormat /dev/proc/priv
+cryptsetup luksFormat /dev/group_name/priv
 ```
 
 # packages
@@ -152,7 +162,7 @@ LC_ALL=en_US.UTF-8
 
 ## pam_mount
 ```
-cryptsetup luksOpen /dev/proc/priv internal
+cryptsetup luksOpen /dev/group_name/priv internal
 ```
 ```
 mkfs.ext4 /dev/mapper/internal
@@ -415,6 +425,10 @@ sudo firewall-cmd --zone=public --add-service=ssh --permanent
 4. allow port rich rules
 ```
 sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="ip_admin" port port="port_apk" protocol="tcp" accept'
+```
+5. remove service. example in below
+```
+sudo firewall-cmd --zone=internal --remove-service=ssh --permanent
 ```
 >[Note]
 > hapus semua service dan port selain di zone public
