@@ -45,6 +45,6 @@ podman run -d \
   --name slims \
   --network server_net \
   -p 8080:80 \
-  -v ~/.config/containers/slims/www/slims9_bulian-9.7.2:/var/www/html \
+  -v ~/.config/containers/slims/www/slims:/var/www/html \
   slims-php
 ```
