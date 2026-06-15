@@ -279,9 +279,9 @@ sudo firewall-cmd --zone=public --add-port=22/tcp --permanent
 ```
 sudo firewall-cmd --zone=public --add-service=ssh --permanent
 ```
-4. remove service
+4. remove service. example in below
 ```
-sudo firewall-cmd --zone=[zone_name] --remove-service=[service_name] --permanent
+sudo firewall-cmd --zone=internal --remove-service=ssh --permanent
 ```
 >[Note]
 > hapus semua service dan port selain di zone public
