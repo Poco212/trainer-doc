@@ -32,7 +32,7 @@ wget https://github.https://github.com/slims/slims9_bulian/releases/download/v9.
 unzip slims9_bulian-9.7.2.zip -d www
 ```
 ```
-mv slims9_bulian-9.7.2 slims
+mv www/slims9_bulian-9.7.2 slims
 ```
 ```
 cd www/slims
