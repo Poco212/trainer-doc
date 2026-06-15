@@ -90,7 +90,7 @@ mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/home /mnt/home
 ```
 
 
-## dock
+## podi
 ```
 lvcreate -l50%FREE group_name -n podi
 ```
@@ -282,7 +282,10 @@ sudo firewall-cmd --zone=public --add-service=ssh --permanent
 4. allow port rich rules
 ```
 sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="ip_admin" port port="port_apk" protocol="tcp" accept'
-
+```
+5. remove service. example in below
+```
+sudo firewall-cmd --zone=internal --remove-service=ssh --permanent
 ```
 >[Note]
 > hapus semua service dan port selain di zone public
