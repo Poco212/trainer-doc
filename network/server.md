@@ -31,6 +31,7 @@ RouteMetric=100
 RouteMetric=100
 ```
 
+### note
 > ip address server dan admin harus dalam satu network contoh:  
 > ip server : 192.168.1.12  
 > maka  
