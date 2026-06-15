@@ -39,3 +39,83 @@ RouteMetric=100
 > ip operator : 192.168.1.14  
 > ip gateway : 192.168.1.1  
 > dan notasi CIDR harus sama yakni 24  
+
+# create systemd ip broadcast
+## install package 
+```
+pacman -S hostapd
+```
+
+## cek interface
+```
+ip link
+```
+
+```
+nvim /etc/hostapd/hostapd.conf
+```
+
+isi
+```
+interface=wlan0
+driver=nl80211
+ssid=MyArchAP
+hw_mode=g
+channel=7
+auth_algs=1
+wpa=2
+wpa_passphrase=MySecurePassword
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+```
+
+```
+nvim /etc/systemd/network/02-wireless-ap.network
+```
+
+isi
+```
+[Match]
+Name=[wireless interface]
+
+[Network]
+Address=[ip address]/CIDR
+DHCPServer=yes
+```
+
+```
+sudo systemctl enable --now systemd-networkd
+```
+
+```
+nvim /etc/sysctl.d/30-ipforward.conf
+```
+
+isi
+```
+net.ipv4.ip_forward=1
+```
+
+```
+sudo sysctl --system
+```
+
+```
+reboot
+```
+
+```
+sudo systemctl enable --now hostapd
+```
+
+```
+sudo systemctl edit hostapd
+```
+
+Add these lines inside the drop-in file:  
+```
+[Unit]
+BindsTo=sys-subsystem-net-devices-[wireless interface].device
+After=sys-subsystem-net-devices-[wireless interface].device
+```
