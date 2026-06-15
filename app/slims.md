@@ -29,5 +29,22 @@ podman run -d \
 ```
 ### container app atau public
 ```
-podman run -d --name slims --network server_net
+wget https://github.https://github.com/slims/slims9_bulian/releases/download/v9.7.2/slims9_bulian-9.7.2.zip
+```
+```
+unzip slims9_bulian-9.7.2.zip -d www
+```
+```
+cd www/slims9_bulian-9.7.2
+```
+```
+podman build -t slims-php .
+```
+```
+podman run -d \
+  --name slims \
+  --network server_net \
+  -p 8080:80 \
+  -v ~/.config/containers/slims/www/slims9_bulian-9.7.2:/var/www/html \
+  slims-php
 ```
