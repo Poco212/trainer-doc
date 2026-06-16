@@ -83,7 +83,7 @@ sudo chmod -R 777 app/slims
 ```
 ## running
 ```
-sudo podman compose up -d
+podman compose up -d
 ```
 ## cek browser
 ```
