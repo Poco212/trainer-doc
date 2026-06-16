@@ -1,5 +1,8 @@
 ## prepare
 ```
+sudo pacman -S podman-compose
+```
+```
 cd .config/containers
 ```
 ```
