@@ -168,8 +168,8 @@ firewall-cmd --permanent --zone=admin --add-port=443/tcp
 ```bash
 firewall-cmd --permanent --zone=operator --add-service=ssh
 firewall-cmd --permanent --zone=operator --add-port=6379/tcp
-firewall-cmd --permanent --zone=admin --add-port=80/tcp
-firewall-cmd --permanent --zone=admin --add-port=443/tcp
+firewall-cmd --permanent --zone=operator --add-port=80/tcp
+firewall-cmd --permanent --zone=operator --add-port=443/tcp
 ```
 
 ### WiFi Client
@@ -177,8 +177,8 @@ firewall-cmd --permanent --zone=admin --add-port=443/tcp
 Hanya public:
 
 ```bash
-firewall-cmd --permanent --zone=admin --add-port=80/tcp
-firewall-cmd --permanent --zone=admin --add-port=443/tcp
+firewall-cmd --permanent --zone=wifi --add-port=80/tcp
+firewall-cmd --permanent --zone=wifi --add-port=443/tcp
 ```
 
 ---
