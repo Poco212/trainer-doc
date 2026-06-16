@@ -1,6 +1,6 @@
 ## prepare
 ```
-mkdir -p .config/containers
+cd .config/containers
 ```
 ```
 wget -c https://github.com/slims/docker-compose-for-slims/archive/master.zip
