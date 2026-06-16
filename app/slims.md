@@ -3,6 +3,9 @@
 sudo pacman -S podman-compose
 ```
 ```
+mkdir -p .config/containers
+```
+```
 cd .config/containers
 ```
 ```
