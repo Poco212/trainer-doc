@@ -74,6 +74,10 @@ rsn_pairwise=CCMP
 nvim /etc/systemd/network/02-wireless-ap.network
 ```
 
+```
+systemctl restart systemd-networkd
+```
+
 isi
 ```
 [Match]
@@ -109,13 +113,81 @@ reboot
 sudo systemctl enable --now hostapd
 ```
 
-```
-sudo systemctl edit hostapd
+
+
+## source-based zones
+
+### Zona admin
+
+```bash
+firewall-cmd --permanent --new-zone=admin
+
+firewall-cmd --permanent --zone=admin --add-source=10.10.1.2
 ```
 
-Add these lines inside the drop-in file:  
+### Zona operator
+
+```bash
+firewall-cmd --permanent --new-zone=operator
+
+firewall-cmd --permanent --zone=operator --add-source=10.10.1.3
 ```
-[Unit]
-BindsTo=sys-subsystem-net-devices-[wireless interface].device
-After=sys-subsystem-net-devices-[wireless interface].device
+
+### Zona wifi-client
+
+Misalnya static AP memberikan:
+
+```text
+10.20.0.0/24
+```
+
+buat zona:
+
+```bash
+firewall-cmd --permanent --new-zone=wifi
+
+firewall-cmd --permanent --zone=wifi --add-source=10.20.0.0/24
+```
+
+---
+
+## Hak akses tiap zona
+
+### Admin
+
+```bash
+firewall-cmd --permanent --zone=admin --add-service=ssh
+firewall-cmd --permanent --zone=admin --add-port=5432/tcp
+firewall-cmd --permanent --zone=admin --add-port=8080/tcp
+firewall-cmd --permanent --zone=admin --add-service=http
+firewall-cmd --permanent --zone=admin --add-service=https
+```
+
+### Operator
+
+```bash
+firewall-cmd --permanent --zone=operator --add-service=ssh
+firewall-cmd --permanent --zone=operator --add-port=8080/tcp
+firewall-cmd --permanent --zone=operator --add-service=http
+firewall-cmd --permanent --zone=operator --add-service=https
+```
+
+### WiFi Client
+
+Hanya public:
+
+```bash
+firewall-cmd --permanent --zone=wifi --add-service=http
+firewall-cmd --permanent --zone=wifi --add-service=https
+```
+
+---
+
+## Default Drop
+
+Setelah semuanya benar:
+
+```bash
+firewall-cmd --set-default-zone=drop --permanent
+firewall-cmd --reload
 ```
