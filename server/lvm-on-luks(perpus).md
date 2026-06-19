@@ -203,7 +203,7 @@ add `sd-encrypt` and `lvm` after `sd-vconsole`
 HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block sd-encrypt lvm2 filesystems fsck)
 ```
 ```
-nvim /etc/mkinitcpio.d/linux-lts.preset
+nvim /etc/mkinitcpio.d/linux-hardened.preset
 ```
 the same as the configuration below
 ```
