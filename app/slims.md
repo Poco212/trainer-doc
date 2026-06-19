@@ -126,12 +126,12 @@ tambahkan
 ```
 ip_address_server2    domain_anda
 ```
+```
+sudo systemctl restart nginx
+```
 ## access
 akses di browser
 ```
 http://domain
 ```
-## cek browser
-```
-http://ip:8080
-```
+
