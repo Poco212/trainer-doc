@@ -96,7 +96,7 @@ sudo firewall-cmd --reload
 ## firewall server 2
 
 ```
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_client]" port port="port_apk" protocol="tcp" accept'
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_network_client]/24" port port="port_apk" protocol="tcp" accept'
 ```
 ```
 sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_admin]" port port="22" protocol="tcp" accept'
