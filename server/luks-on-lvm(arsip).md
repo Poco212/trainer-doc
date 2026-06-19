@@ -82,16 +82,6 @@ mkfs.ext4 /dev/group_name/home
 ```
 mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/home /mnt/home
 ```
-## podi
-```
-lvcreate -L size (G | M) group_name -n podi
-```
-```
-mkfs.ext4 /dev/group_name/home
-```
-```
-mount --mkdir -o rw,nodev,nosuid,relatime /dev/group_name/home /mnt/var/lib/containers
-```
 
 ## home internal
 ```
@@ -334,7 +324,7 @@ add `lvm2` after `sd-vconsole`
 HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block lvm2 filesystems fsck)
 ```
 ```
-nvim /etc/mkinitcpio.d/linux-lts.preset
+nvim /etc/mkinitcpio.d/linux-hardened.preset
 ```
 the same as the configuration below
 ```
@@ -401,9 +391,6 @@ reboot
 ## after booting
 ```
 sudo chown -R nama_user:nama_user /home/[nama user]
-```
-```
-sudo systemctl enable sddm
 ```
 ```
 reboot
