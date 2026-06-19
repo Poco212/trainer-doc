@@ -34,6 +34,9 @@ RouteMetric=100
 # create static ip ethernet for server 2
 
 ```
+sudo pacman -S nginx
+```
+```
 sudo nvim /etc/systemd/network/20-ethernet.network
 ```
 
