@@ -1,7 +1,7 @@
 # server 1
 ## prepare
 ```
-sudo pacman -S podman-compose nginx
+sudo pacman -S podman-compose 
 ```
 ```
 mkdir -p .config/containers/omeka .config/containers/omeka/config .config/containers/omeka/files
