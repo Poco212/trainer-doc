@@ -163,7 +163,7 @@ sudo nvim /etc/hosts
 ```
 tambahkan
 ```
-ip_address_server2    domain_anda
+ip_address_wireless_server2    domain_anda
 ```
 ```
 sudo systemctl restart nginx
