@@ -4,13 +4,19 @@
 sudo pacman -S podman-compose nginx
 ```
 ```
-mkdir -p .config/containers/omeka
+mkdir -p .config/containers/omeka .config/containers/omeka/config .config/containers/omeka/files
 ```
 ```
 cd .config/containers/omeka
 ```
 ```
-nvim database.ini
+chmod -R 777 files
+```
+```
+chmod -R 777 config
+```
+```
+nvim config/database.ini
 ```
 isi
 ```
@@ -39,12 +45,12 @@ services:
     depends_on:
       - db
     build: ./
-    image: klokantech/omeka-s
+    image: elestio/omeka:latest
     ports:
       - "8081:80"
     volumes:
-      - ./modules/:/var/www/html/modules/
-      - ./themes/custom/:/var/www/html/themes/custom/
+      - ./files:/var/www/html/omeka-s/files
+      - ./config/database.ini:/var/www/html/omeka-s/config/database.ini
     restart: always
 ```
 ```
