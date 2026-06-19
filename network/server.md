@@ -190,9 +190,7 @@ sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" 
 sudo firewall-cmd --reload
 ```
 ### nginx
-```
-sudo pacman -S nginx
-```
+
 ```
 sudo mkdir -p /etc/nginx/sites-available
 ```
