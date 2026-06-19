@@ -1,7 +1,7 @@
 # create static ip for server 1
 
 ```
-nvim /etc/systemd/network/20-ethernet.network
+sudo nvim /etc/systemd/network/20-ethernet.network
 ```
 
 ```
@@ -34,7 +34,7 @@ RouteMetric=100
 # create static ip for server 2
 
 ```
-nvim /etc/systemd/network/20-ethernet.network
+sudo nvim /etc/systemd/network/20-ethernet.network
 ```
 
 ```
@@ -66,7 +66,7 @@ RouteMetric=100
 # create systemd ip broadcast for server 1
 ## install package 
 ```
-pacman -S hostapd
+sudo pacman -S hostapd
 ```
 
 ## cek interface
@@ -75,32 +75,27 @@ ip link
 ```
 
 ```
-nvim /etc/hostapd/hostapd.conf
+sudo nvim /etc/hostapd/hostapd.conf
 ```
 
 isi
 ```
-interface=wlan0
+interface=[interface_wireless] example: wlan0
 driver=nl80211
-ssid=MyArchAP
+ssid=[nama_wifi] example: MyArchAP
 hw_mode=g
 channel=7
 auth_algs=1
 wpa=2
-wpa_passphrase=MySecurePassword
+wpa_passphrase=[password_wifi] example: 12345678 (minimal 8 character)
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 ```
 
 ```
-nvim /etc/systemd/network/02-wireless-ap.network
+sudo nvim /etc/systemd/network/02-wireless-ap.network
 ```
-
-```
-systemctl restart systemd-networkd
-```
-
 isi
 ```
 [Match]
@@ -110,15 +105,19 @@ Name=[wireless interface]
 Address=[ip address]/CIDR
 DHCPServer=yes
 ```
-
+```
+systemctl restart systemd-networkd
+```
 ```
 sudo systemctl enable --now systemd-networkd
 ```
+```
+sudo systemctl enable --now hostapd
+```
 
 ```
-nvim /etc/sysctl.d/30-ipforward.conf
+sudo nvim /etc/sysctl.d/99-custome.conf
 ```
-
 isi
 ```
 net.ipv4.ip_forward=1
@@ -131,14 +130,10 @@ sudo sysctl --system
 ```
 reboot
 ```
-
-```
-sudo systemctl enable --now hostapd
-```
-# create systemd ip broadcast for server 1
+# create systemd ip broadcast for server 2
 ## install package 
 ```
-pacman -S hostapd
+sudo pacman -S hostapd
 ```
 
 ## cek interface
@@ -147,32 +142,27 @@ ip link
 ```
 
 ```
-nvim /etc/hostapd/hostapd.conf
+sudo nvim /etc/hostapd/hostapd.conf
 ```
 
 isi
 ```
-interface=wlan0
+interface=[interface_wireless] example: wlan0
 driver=nl80211
-ssid=MyArchAP
+ssid=[nama_wifi] example: MyArchAP
 hw_mode=g
 channel=7
 auth_algs=1
 wpa=2
-wpa_passphrase=MySecurePassword
+wpa_passphrase=[password_wifi] example: 12345678 (minimal 8 character)
 wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 ```
 
 ```
-nvim /etc/systemd/network/02-wireless-ap.network
+sudo nvim /etc/systemd/network/02-wireless-ap.network
 ```
-
-```
-systemctl restart systemd-networkd
-```
-
 isi
 ```
 [Match]
@@ -184,11 +174,19 @@ DHCPServer=yes
 ```
 
 ```
+sudo systemctl restart systemd-networkd
+```
+
+```
 sudo systemctl enable --now systemd-networkd
 ```
 
 ```
-nvim /etc/sysctl.d/30-ipforward.conf
+sudo systemctl enable --now hostapd
+```
+
+```
+sudo nvim /etc/sysctl.d/99-custome.conf
 ```
 
 isi
@@ -202,10 +200,6 @@ sudo sysctl --system
 
 ```
 reboot
-```
-
-```
-sudo systemctl enable --now hostapd
 ```
 
 ### note
@@ -242,14 +236,8 @@ sudo firewall-cmd --reload
 ```
 ## firewall server 2
 ```
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_network_client]/24" port port="80" protocol="tcp" accept'
+sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
 ```
-example
-```
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.2.0/24" port port="80" protocol="tcp" accept'
-```
-> [NOTE]
-> angka terakhir pada ip harus ditulis `0` 
 ```
 sudo firewall-cmd --reload
 ```
