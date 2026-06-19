@@ -23,22 +23,6 @@ cd compose
 ```
 ## config
 ```
-sudo nvim /etc/sysctl.d/99-custom.conf
-```
-isi
-```
-net.ipv4.ip_unprivileged_port_start=80
-```
-```
-sudo sysctl --system
-```
-```
-mv docker-compose.yaml docker-compose.yaml.bck
-```
-```
-mv docker-compose-redis.yaml docker-compose.yaml
-```
-```
 nvim docker-compose.yaml
 ```
 >[NOTE] pastikan valuenya sama dengan di bawah
@@ -59,14 +43,6 @@ services:
             - "./dbdata:/var/lib/mysql"
         ports:
             - "127.0.0.1:3306:3306"
-    redis:
-        image: redis:latest
-        restart: always
-        networks: 
-            - slims-net
-        container_name: redis
-        ports:
-            - "127.0.0.1:6379:6379"
     app01:
         image: slimsofficial/slims:latest
         restart: always
@@ -74,8 +50,8 @@ services:
             - slims-net
         container_name: slims-app
         ports:
-            - "80:80"
-            - "443:443"
+            - "8080:80"
+        #    - "443:443"
         volumes:
             - "./app:/var/www/html"
             - "./conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
