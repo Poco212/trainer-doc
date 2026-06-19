@@ -215,4 +215,41 @@ sudo systemctl enable --now hostapd
 > ip admin : 192.168.1.13  
 > ip operator : 192.168.1.14  
 > ip gateway : 192.168.1.1  
-> dan notasi CIDR harus sama yakni 24  
+> dan notasi CIDR harus sama yakni 24
+
+## firewall server 1
+```bash
+sudo firewall-cmd --permanent --new-zone=admin
+```
+```
+sudo firewall-cmd --permanent --zone=admin --add-source=[ip_admin]
+```
+```bash
+sudo firewall-cmd --permanent --zone=admin --add-service=ssh
+```
+```
+sudo firewall-cmd --permanent --zone=admin --add-port=3306/tcp
+```
+```
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_server2]" port port="3306" protocol="tcp" accept'
+```
+example
+```
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="10.10.2.4" port port="3306" protocol="tcp" accept'
+```
+```
+sudo firewall-cmd --reload
+```
+## firewall server 2
+```
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_network_client]/24" port port="80" protocol="tcp" accept'
+```
+example
+```
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="192.168.2.0/24" port port="80" protocol="tcp" accept'
+```
+> [NOTE]
+> angka terakhir pada ip harus ditulis `0` 
+```
+sudo firewall-cmd --reload
+```
