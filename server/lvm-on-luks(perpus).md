@@ -361,4 +361,15 @@ nvim /etc/containers/registries.conf
 ```
 unqualified-search-registries = ["docker.io"]
 ```
+#### hardened setup
+```
+sudo nvim /etc/sysctl.d/99-custome.conf
+```
+isi
+```
+kernel.unprivileged_userns_clone=1
+```
+```
+sudo sysctl --system
+```
  
