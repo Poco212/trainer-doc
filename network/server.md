@@ -220,7 +220,7 @@ server {
     server_name domain;
 
     location / {
-        proxy_pass http://ip_server1:port_apk;
+        proxy_pass http://ip_server1_ethernet:port_apk;
 
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
