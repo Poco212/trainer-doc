@@ -1,26 +1,97 @@
-# server 1 (database)
 ## prepare
 ```
 sudo pacman -S podman-compose
 ```
+```
+mkdir -p .config/containers
+```
+```
+cd .config/containers
+```
+```
+wget -c https://github.com/slims/docker-compose-for-slims/archive/master.zip
+```
+```
+unzip master.zip 
+```
+```
+mv docker-compose-for-slims-master compose
+```
+```
+cd compose
+```
 ## config
 ```
-mkdir -p .config/containers/database
+sudo nvim /etc/sysctl.d/99-custom.conf
+```
+isi
+```
+net.ipv4.ip_unprivileged_port_start=80
 ```
 ```
-cd .config/containers/database
+sudo sysctl --system
 ```
 ```
-nvim envi-db.env
+mv docker-compose.yaml docker-compose.yaml.bck
 ```
-isi 
 ```
-MYSQL_DATABASE=slims
-MYSQL_ROOT_PASSWORD=mypassword
-MYSQL_USER=slims_user
-MYSQL_PASSWORD=s0beautifulday 
+mv docker-compose-redis.yaml docker-compose.yaml
+```
+```
+nvim docker-compose.yaml
+```
+>[NOTE] pastikan valuenya sama dengan di bawah
+
+```
+version: "3.7"
+services: 
+    db:
+        image: mysql:5.7
+        restart: always
+        networks: 
+            - slims-net
+        container_name: slims-db
+        env_file: 
+            - db_default.env
+        command: --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION --max_allowed_packet=1024M
+        volumes:
+            - "./dbdata:/var/lib/mysql"
+        ports:
+            - "127.0.0.1:3306:3306"
+    redis:
+        image: redis:latest
+        restart: always
+        networks: 
+            - slims-net
+        container_name: redis
+        ports:
+            - "127.0.0.1:6379:6379"
+    app01:
+        image: slimsofficial/slims:latest
+        restart: always
+        networks: 
+            - slims-net
+        container_name: slims-app
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - "./app:/var/www/html"
+            - "./conf/php/php.ini:/usr/local/etc/php/conf.d/php.ini"
+networks: 
+    slims-net:
+        name: slims-net
+        ipam:
+            driver: default
+```
+```
+sudo chmod -R 777 app/slims
 ```
 ## running
 ```
-podman run -d --name slims-db --restart always --network slims-net --env-file db_default.env -p 3306:3306 -v ./dbdata:/var/lib/mysql:Z mysql:5.7 --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION --max_allowed_packet=1024M
+podman compose up -d
+```
+## cek browser
+```
+http://ip:8080
 ```
