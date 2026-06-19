@@ -1,3 +1,4 @@
+# server 1
 ## prepare
 ```
 sudo pacman -S podman-compose
@@ -90,6 +91,78 @@ sudo chmod -R 777 app/slims
 ## running
 ```
 podman compose up -d
+```
+
+# server 2
+```
+sudo pacman -S nginx
+```
+```
+sudo mkdir -p /etc/nginx/sites-available
+```
+```
+sudo mkdir -p /etc/nginx/sites-enabled
+```
+```
+sudo nvim /etc/nginx/nginx.conf
+```
+tambahkan di paling atas
+```
+user http;
+```
+tambahkan ke paling bawah. sebelum tutup `}` terakhir
+```
+include /etc/nginx/sites-enabled/*;
+```
+```
+sudo nvim /etc/nginx/sites-available/slims.conf
+```
+tambahkan sesuai dengan dibawah
+```
+server {
+    listen 80;
+    server_name _; # Menggunakan '_' berarti menerima akses dari IP server langsung
+
+    root /var/www/html/slims;
+    index index.php index.html index.htm;
+
+    charset utf-8;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Teruskan file PHP ke PHP-FPM socket bawaan Arch Linux
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+
+}
+```
+```
+sudo ln -s /etc/nginx/sites-available/slims.conf /etc/nginx/sites-enabled/
+```
+```
+sudo nginx -t
+```
+```
+sudo systemctl restart nginx
+```
+## hosts
+```
+sudo nvim /etc/hosts
+```
+tambahkan
+```
+ip_address_server2    domain_anda
+```
+## access
+akses di browser
+```
+http://domain
 ```
 ## cek browser
 ```
