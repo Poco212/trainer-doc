@@ -22,6 +22,5 @@ MYSQL_PASSWORD=s0beautifulday
 ```
 ## running
 ```
-podman run -d --name slims-db --restart always --env-file db_default.env -p 3306:3306 -v slims-db-data:/var/lib/mysql mysql:5.7
---sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION --max_allowed_packet=1024M
+podman run -d --name slims-db --restart always --env-file db_default.env -p 3306:3306 -v ./dbdata:/var/lib/mysql:Z mysql:5.7 --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION --max_allowed_packet=1024M
 ```
