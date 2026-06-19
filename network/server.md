@@ -109,7 +109,47 @@ ap interface_wifi start-profile myhotspot
 ```
 ## install package 
 # create systemd ip broadcast for server 2
-## install package 
+```
+sudo nvim /etc/iwd/main.conf
+```
+isi
+```
+[General]
+EnableNetworkConfiguration=true
+```
+```
+sudo systemctl restart iwd
+```
+
+```
+cd /var/lib/iwd
+```
+
+```
+sudo nvim myhotspot.ap
+```
+isi
+```
+[General]
+Enable=true
+SSID=shirohige
+
+[Security]
+Passphrase=[my_password]
+
+[IPv4]
+Address=[ip_address]
+Netmask=255.255.255.0
+```
+```
+sudo iwctl
+```
+```
+device interface_wifi set-property Mode ap
+```
+```
+ap interface_wifi start-profile myhotspot
+```
 
 ### note
 > ip address server dan admin harus dalam satu network contoh:  
