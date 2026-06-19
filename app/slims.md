@@ -122,23 +122,15 @@ tambahkan sesuai dengan dibawah
 server {
     listen 80;
     server_name _; # Menggunakan '_' berarti menerima akses dari IP server langsung
-
-    root /var/www/html/slims;
-    index index.php index.html index.htm;
-
-    charset utf-8;
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
+    location / { 
+        proxy_pass http://ip_server1:port;
+        
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
     }
-
-    # Teruskan file PHP ke PHP-FPM socket bawaan Arch Linux
-    location ~ \.php$ {
-        include fastcgi_params;
-        fastcgi_pass unix:/run/php-fpm/php-fpm.sock;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-    }
+  
 
 }
 ```
