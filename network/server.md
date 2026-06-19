@@ -1,4 +1,4 @@
-# create static ip for server 1
+# create static ip ethernet for server 1
 
 ```
 sudo nvim /etc/systemd/network/20-ethernet.network
@@ -31,7 +31,7 @@ RouteMetric=100
 RouteMetric=100
 ```
 
-# create static ip for server 2
+# create static ip ethernet for server 2
 
 ```
 sudo nvim /etc/systemd/network/20-ethernet.network
@@ -63,144 +63,12 @@ RouteMetric=100
 [IPv6AcceptRA]
 RouteMetric=100
 ```
-# create systemd ip broadcast for server 1
+>[Note]
+>IP server 1 dan Ip server harus 1 network
+# create systemd ip atau router  for server 1
 ## install package 
-```
-sudo pacman -S hostapd
-```
-
-## cek interface
-```
-ip link
-```
-
-```
-sudo nvim /etc/hostapd/hostapd.conf
-```
-
-isi
-```
-interface=[interface_wireless] example: wlan0
-driver=nl80211
-ssid=[nama_wifi] example: MyArchAP
-hw_mode=g
-channel=7
-auth_algs=1
-wpa=2
-wpa_passphrase=[password_wifi] example: 12345678 (minimal 8 character)
-wpa_key_mgmt=WPA-PSK
-wpa_pairwise=TKIP
-rsn_pairwise=CCMP
-```
-
-```
-sudo nvim /etc/systemd/network/02-wireless-ap.network
-```
-isi
-```
-[Match]
-Name=[wireless interface]
-
-[Network]
-Address=[ip address]/CIDR
-DHCPServer=yes
-```
-```
-systemctl restart systemd-networkd
-```
-```
-sudo systemctl enable --now systemd-networkd
-```
-```
-sudo systemctl enable --now hostapd
-```
-
-```
-sudo nvim /etc/sysctl.d/99-custome.conf
-```
-isi
-```
-net.ipv4.ip_forward=1
-```
-
-```
-sudo sysctl --system
-```
-
-```
-reboot
-```
 # create systemd ip broadcast for server 2
 ## install package 
-```
-sudo pacman -S hostapd
-```
-
-## cek interface
-```
-ip link
-```
-
-```
-sudo nvim /etc/hostapd/hostapd.conf
-```
-
-isi
-```
-interface=[interface_wireless] example: wlan0
-driver=nl80211
-ssid=[nama_wifi] example: MyArchAP
-hw_mode=g
-channel=7
-auth_algs=1
-wpa=2
-wpa_passphrase=[password_wifi] example: 12345678 (minimal 8 character)
-wpa_key_mgmt=WPA-PSK
-wpa_pairwise=TKIP
-rsn_pairwise=CCMP
-```
-
-```
-sudo nvim /etc/systemd/network/02-wireless-ap.network
-```
-isi
-```
-[Match]
-Name=[wireless interface]
-
-[Network]
-Address=[ip address]/CIDR
-DHCPServer=yes
-```
-
-```
-sudo systemctl restart systemd-networkd
-```
-
-```
-sudo systemctl enable --now systemd-networkd
-```
-
-```
-sudo systemctl enable --now hostapd
-```
-
-```
-sudo nvim /etc/sysctl.d/99-custome.conf
-```
-
-isi
-```
-net.ipv4.ip_forward=1
-```
-
-```
-sudo sysctl --system
-```
-
-```
-reboot
-```
 
 ### note
 > ip address server dan admin harus dalam satu network contoh:  
@@ -212,31 +80,23 @@ reboot
 > dan notasi CIDR harus sama yakni 24
 
 ## firewall server 1
-```bash
-sudo firewall-cmd --permanent --new-zone=admin
+```
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_server2]" port port="port_apk" protocol="tcp" accept'
 ```
 ```
-sudo firewall-cmd --permanent --zone=admin --add-source=[ip_admin]
-```
-```bash
-sudo firewall-cmd --permanent --zone=admin --add-service=ssh
-```
-```
-sudo firewall-cmd --permanent --zone=admin --add-port=3306/tcp
-```
-```
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_server2]" port port="3306" protocol="tcp" accept'
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_admin]" port port="22" protocol="tcp" accept'
 ```
 example
 ```
-sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="10.10.2.4" port port="3306" protocol="tcp" accept'
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="10.10.2.4" port port="8080" protocol="tcp" accept'
 ```
 ```
 sudo firewall-cmd --reload
 ```
 ## firewall server 2
+
 ```
-sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_client]" port port="port_apk" protocol="tcp" accept'
 ```
 ```
 sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_admin]" port port="22" protocol="tcp" accept'
