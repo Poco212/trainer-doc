@@ -1,7 +1,7 @@
 # server 1
 ## prepare
 ```
-sudo pacman -S podman-compose
+sudo pacman -S podman-compose nginx
 ```
 ```
 mkdir -p .config/containers
