@@ -239,5 +239,12 @@ sudo firewall-cmd --reload
 sudo firewall-cmd --permanent --zone=public --add-port=80/tcp
 ```
 ```
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="[ip_admin]" port port="22" protocol="tcp" accept'
+```
+example
+```
+sudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family="ipv4" source address="172.27.5.3" port port="22" protocol="tcp" accept'
+```
+```
 sudo firewall-cmd --reload
 ```
