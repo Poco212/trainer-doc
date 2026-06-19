@@ -118,7 +118,7 @@ sudo nginx -t
 ```
 sudo systemctl restart nginx
 ```
-## hosts
+# pc client
 ```
 sudo nvim /etc/hosts
 ```
