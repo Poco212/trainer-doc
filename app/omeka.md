@@ -54,5 +54,5 @@ services:
     restart: always
 ```
 ```
-podman compose up -d
+sudo podman compose up -d
 ```
