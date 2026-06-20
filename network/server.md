@@ -84,9 +84,11 @@ sudo systemctl restart iwd
 ```
 cd /var/lib/iwd
 ```
-
 ```
-sudo nvim myhotspot.ap
+sudo mkdir ap
+```
+```
+sudo nvim ap/myhotspot.ap
 ```
 isi
 ```
@@ -127,9 +129,11 @@ sudo systemctl restart iwd
 ```
 cd /var/lib/iwd
 ```
-
 ```
-sudo nvim myhotspot.ap
+sudo mkdir ap
+```
+```
+sudo nvim ap/myhotspot.ap
 ```
 isi
 ```
