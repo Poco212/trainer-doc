@@ -66,5 +66,5 @@ sudo chmod -R 777 app/slims
 ```
 ## running
 ```
-podman compose up -d
+sudo podman compose up -d
 ```
