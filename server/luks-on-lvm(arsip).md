@@ -440,24 +440,7 @@ sudo modprobe -r usb-storage
 ```
 sudo mkinitcpio -P
 ```
-### setup rootless podman
-#### adding subuid and subgid
 
-```
-sudo nvim /etc/subuid
-```
-
-```/etc/subuid
-[user]:100000:65536
-```
-
-```
-sudo nvim /etc/subgid
-```
-
-```/etc/subgid
-[user]:100000:65536
-```
 
 ## enable global podman
 
@@ -465,20 +448,14 @@ sudo nvim /etc/subgid
 sudo systemctl enable --global podman
 ```
 
-## configure storage
-
-```
-mkdir -p .config/containers/
-```
-
-#### registries podman
+## registries podman
 ```
 nvim /etc/containers/registries.conf
 ```
 ```
 unqualified-search-registries = ["docker.io"]
 ```
-#### hardened setup
+## hardened setup
 ```
 sudo nvim /etc/sysctl.d/99-custome.conf
 ```
