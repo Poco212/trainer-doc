@@ -471,19 +471,6 @@ sudo systemctl enable --global podman
 mkdir -p .config/containers/
 ```
 
-```
-nvim .config/containers/storage.conf
-```
-
-```
-[storage]
-driver = "overlay"
-
-[storage.options.overlay]
-mount_program = ""
-mountopt = "userxattr"
-```
-
 #### registries podman
 ```
 nvim /etc/containers/registries.conf
