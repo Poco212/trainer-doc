@@ -19,5 +19,5 @@ cd atom
 export COMPOSE_FILE="$PWD/docker/docker-compose.dev.yml"
 ```
 ```
-sudo podman compose up -d
+sudo podman compose -f docker/docker-compose.dev.yml up -d
 ```
