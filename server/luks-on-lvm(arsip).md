@@ -93,7 +93,7 @@ cryptsetup luksFormat /dev/group_name/priv
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-hardened linux-hardened-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep podman openssh wget git asciinema
+pacstrap /mnt intel-ucode linux-hardened linux-hardened-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep podman openssh wget git
 ```
 # fstab
 ```
