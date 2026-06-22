@@ -93,7 +93,7 @@ cryptsetup luksFormat /dev/group_name/priv
 
 # packages
 ```
-pacstrap /mnt intel-ucode linux-hardened linux-hardened-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep podman openssh
+pacstrap /mnt intel-ucode linux-hardened linux-hardened-headers linux-firmware mkinitcpio lvm2 base sudo curl neovim iwd firewalld pacman which grep podman openssh wget git asciinema
 ```
 # fstab
 ```
@@ -104,6 +104,10 @@ genfstab -U /mnt > /mnt/etc/fstab
 
 ```
 echo "tmpfs /tmp tmpfs defaults,rw,nosuid,nodev,noexec,relatime,size=1G 0 0" >> /mnt/etc/fstab
+```
+# network
+```
+cp /etc/systemd/network/* /mnt/etc/systemd/network
 ```
 
 # chroot
