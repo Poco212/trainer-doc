@@ -16,7 +16,7 @@ git clone -b qa/2.x https://github.com/artefactual/atom.git atom
 cd atom
 ```
 ```
-export COMPOSE_FILE="$PWD/docker/docker-compose.dev.yml"
+sudo export COMPOSE_FILE="$PWD/docker/docker-compose.dev.yml"
 ```
 ```
 sudo podman compose -f docker/docker-compose.dev.yml up -d
