@@ -83,6 +83,17 @@ mkfs.ext4 /dev/group_name/home
 mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/home /mnt/home
 ```
 
+## podman
+```
+lvcreate -l50%FREE group_name -n podman
+```
+```
+mkfs.ext4 /dev/group_name/podman
+```
+```
+mount --mkdir -o rw,nodev,nosuid,noexec,relatime /dev/group_name/podman /mnt/var/lib/containers
+```
+
 ## home internal
 ```
 lvcreate -l50%FREE group_name -n priv
