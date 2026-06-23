@@ -320,6 +320,24 @@ sudo mkinitcpio -P
 ```
 sudo systemctl enable --global podman
 ```
+## configure storage
+
+```
+mkdir -p .config/containers/
+```
+
+```
+nvim .config/containers/storage.conf
+```
+
+```
+[storage]
+driver = "overlay"
+
+[storage.options.overlay]
+mount_program = ""
+mountopt = "userxattr"
+```
 
 ## registries podman
 ```
