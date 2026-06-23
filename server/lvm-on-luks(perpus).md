@@ -253,6 +253,10 @@ systemctl enable iwd
 systemctl enable firewalld
 ```
 
+```
+systemctl enable sshd
+```
+
 ## booting
 ```
 exit
