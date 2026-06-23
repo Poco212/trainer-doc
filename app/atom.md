@@ -4,19 +4,19 @@
 sudo pacman -S podman-compose 
 ```
 ```
-mkdir -p .config/containers/atom
+sudo su
 ```
 ```
-cd .config/containers/atom
+mkdir atom
+```
+```
+cd atom
 ```
 ```
 git clone -b qa/2.x https://github.com/artefactual/atom.git atom
 ```
 ```
 cd atom
-```
-```
-sudo su
 ```
 ```
 export COMPOSE_FILE="$PWD/docker/docker-compose.dev.yml"
