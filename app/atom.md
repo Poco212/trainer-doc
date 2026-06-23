@@ -1,13 +1,20 @@
 # server 1
 ## prepare
 ```
-sudo pacman -S podman-compose 
+sudo pacman -S podman-compose fuse-overlayfs
 ```
 ```
-sudo su
+mkdir container
 ```
 ```
-mkdir atom
+cd container
+```
+```
+nvim storage.conf
+```
+isi
+```
+
 ```
 ```
 cd atom
@@ -22,5 +29,5 @@ cd atom
 export COMPOSE_FILE="$PWD/docker/docker-compose.dev.yml"
 ```
 ```
-sudo podman compose -f docker/docker-compose.dev.yml up -d
+podman compose -f docker/docker-compose.dev.yml up -d
 ```
