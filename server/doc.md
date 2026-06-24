@@ -121,6 +121,15 @@ ln -fs /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
 ```
 hwclock --systohc
 ```
+```
+timedatectl set-ntp true
+```
+```
+timedatectl set-timezone Asia/Jakarta
+```
+```
+timedatectl status
+```
 
 ## locale
 
