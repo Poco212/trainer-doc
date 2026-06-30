@@ -56,4 +56,5 @@ server1   Ready    control-plane   7m41s   v1.35.5+k3s1
 ```
 ### bikin label pada setiap agent
 ```
+sudo kubectl label node [hostname_server] role=[rolenya]
 ```
