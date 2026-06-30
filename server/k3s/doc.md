@@ -54,3 +54,6 @@ NAME      STATUS   ROLES           AGE     VERSION
 monitor   Ready    <none>          87s     v1.35.5+k3s1
 server1   Ready    control-plane   7m41s   v1.35.5+k3s1
 ```
+### bikin label pada setiap agent
+```
+```
