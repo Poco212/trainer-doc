@@ -25,7 +25,7 @@ curl -sfL https://get.k3s.io | sh -s server --disable traefik
 ```
 
 ```
-sudo cat /etc/rancher/node/password
+sudo cat /var/lib/rancher/k3s/server/node-token 
 ```
 
 contoh output
